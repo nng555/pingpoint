@@ -6,6 +6,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class FriendAdapter extends ArrayAdapter<PingFriends> {
         TextView nameView = (TextView) convertView.findViewById(R.id.friend_name);
 
         nameView.setText(friends.getFriend());
-
+        nameView.setTextColor(Color.WHITE);
         return convertView;
     }
 }

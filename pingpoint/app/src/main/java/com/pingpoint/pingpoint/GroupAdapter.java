@@ -5,6 +5,7 @@ import com.parse.ParseObject;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class GroupAdapter extends ArrayAdapter<PingGroup> {
         TextView nameView = (TextView) convertView.findViewById(R.id.group_name);
 
         nameView.setText(group.getName());
+        nameView.setTextColor(Color.WHITE);
 
         return convertView;
     }
