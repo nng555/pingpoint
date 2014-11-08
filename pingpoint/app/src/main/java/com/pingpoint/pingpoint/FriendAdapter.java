@@ -36,6 +36,7 @@ public class FriendAdapter extends ArrayAdapter<PingFriends> {
 
         nameView.setText(friends.getFriend());
         nameView.setTextColor(Color.WHITE);
+        nameView.setTextAlignment(100);
         return convertView;
     }
 }
