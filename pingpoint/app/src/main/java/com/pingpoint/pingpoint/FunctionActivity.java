@@ -11,8 +11,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.model.Marker;
+import android.location.Location;
 
-public class FunctionActivity extends Activity {
+
+public class FunctionActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
+        GooglePlayServicesClient.OnConnectionFailedListener{
 
     private GoogleMap theMap;
 
@@ -25,13 +32,15 @@ public class FunctionActivity extends Activity {
         decorView.setSystemUiVisibility(uiOptions);
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-        MapFragment mMapFragment = MapFragment.newInstance();
-        FragmentTransaction fragmentTransaction =
-                getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.map, mMapFragment);
-        fragmentTransaction.commit();
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        theMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        setUpMapIfNeeded();
+        theMap.setMyLocationEnabled(true);
+        LocationClient mLocationClient = new LocationClient(this, this, this);
+        Location poo = new Location(mLocationClient.getLastLocation());
+
+        Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
+
+
 
     }
 
@@ -48,6 +57,12 @@ public class FunctionActivity extends Activity {
             }
         }
     }
+
+    public void onConnected(Bundle ed){}
+    public void onDisconnected(){}
+    public void onConnectionFailed(ConnectionResult rs){}
+
+
 
     /* updateLocation()
      * - Get Own User Location
