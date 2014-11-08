@@ -25,6 +25,7 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.widget.Toast;
 import android.content.IntentSender;
+import com.google.android.gms.maps.CameraUpdateFactory;
 
 
 public class FunctionActivity extends Activity
@@ -83,6 +84,7 @@ public class FunctionActivity extends Activity
             myPosition = new LatLng(latitude, longitude);
 
             theMap.addMarker(new MarkerOptions().position(myPosition).title("Start"));
+            theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15  ));
         }
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
