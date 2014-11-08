@@ -41,12 +41,25 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         theMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(this, this, this);
         mLocationClient.connect();
+        while(!fuckMeInAss())
+        {
+            poo = null;
+        }
         poo = new Location(mLocationClient.getLastLocation());
-
-            Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
-
+        Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
 
 
+
+    }
+
+    private boolean fuckMeInAss()
+    {
+        if(mLocationClient.isConnected())
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     private void setUpMapIfNeeded()
