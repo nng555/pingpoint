@@ -36,11 +36,11 @@
         android:id="@+id/textview_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
         android:text="string/powered_by"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginTop="91dp"
+        android:layout_below="@+id/signup_button"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textview_2"
@@ -49,7 +49,7 @@
         android:layout_alignTop="@+id/textview_1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
-        android:text="string/parse"
+        android:text="ASS"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
