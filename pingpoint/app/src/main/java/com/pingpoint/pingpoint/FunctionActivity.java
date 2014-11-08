@@ -67,11 +67,12 @@ public class FunctionActivity extends Activity
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
         mLocationClient.connect();
-        while(!fuckMeInAss())
+        poo = mLocationClient.getLastLocation();
+        /*while(!fuckMeInAss())
         {
             poo = null;
         }
-        poo = mLocationClient.getLastLocation();
+        */
         Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
 
 
