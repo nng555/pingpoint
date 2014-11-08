@@ -25,13 +25,13 @@ public class FunctionActivity extends Activity {
         decorView.setSystemUiVisibility(uiOptions);
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-        theMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         MapFragment mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction =
                 getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.map, mMapFragment);
         fragmentTransaction.commit();
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        theMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
     }
 
