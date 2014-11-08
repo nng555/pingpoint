@@ -33,12 +33,13 @@ public class LoginActivity extends Activity {
         // Set up the login form.
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
+
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == R.id.edittext_action_login ||
                         actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    login();
+                    //login();
                     return true;
                 }
                 return false;
@@ -52,7 +53,9 @@ public class LoginActivity extends Activity {
                 login();
             }
         });
+
     }
+
 
     private void login() {
         String username = usernameEditText.getText().toString().trim();
