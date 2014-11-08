@@ -36,17 +36,6 @@ public class SignUpActivity extends Activity {
 
     passwordEditText = (EditText) findViewById(R.id.password_edit_text);
     passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
-    passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-      @Override
-      public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == R.id.edittext_action_signup ||
-            actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-          signup();
-          return true;
-        }
-        return false;
-      }
-    });
 
     // Set up the submit button click handler
     Button mActionButton = (Button) findViewById(R.id.action_button);
@@ -71,15 +60,9 @@ public class SignUpActivity extends Activity {
     user.signUpInBackground(new SignUpCallback() {
       @Override
       public void done(ParseException e) {
-        if (e != null) {
-          // Show the error message
-          Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        } else {
-          // Start an intent for the dispatch activity
           Intent intent = new Intent(SignUpActivity.this, DispatchActivity.class);
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent);
-        }
       }
     });
   }

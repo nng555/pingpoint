@@ -7,10 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WelcomeActivity" >
+    tools:context=".BothActivity" >
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/friend_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,15 +22,26 @@
         android:text="Friends" />
 
     <Button
-        android:id="@+id/signup_button"
+        android:id="@+id/group_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/login_button"
+        android:layout_below="@id/friend_button"
         android:text="Groups" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/group_button"
+        android:text="Logout" />
 
     <TextView
         android:id="@+id/textview_1"
@@ -39,7 +50,7 @@
         android:text="Brought to you by"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_marginTop="91dp"
-        android:layout_below="@+id/signup_button"
+        android:layout_below="@+id/logout_button"
         android:layout_centerHorizontal="true" />
 
     <TextView
