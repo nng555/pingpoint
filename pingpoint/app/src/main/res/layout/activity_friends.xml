@@ -33,7 +33,7 @@
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
-        android:background="#ffffff"
+        android:background="#64f1f1f1"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />
 

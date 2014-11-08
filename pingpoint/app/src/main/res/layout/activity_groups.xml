@@ -25,13 +25,17 @@
 
     <ListView
         android:id="@+id/group_list"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:background="#ffffff"
+        android:background="#64f1f1f1"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:touchscreenBlocksFocus="false"
-        android:choiceMode="none" />
+        android:choiceMode="none"
+        tools:listitem="@android:layout/simple_list_item_2"
+        android:divider="@color/common_signin_btn_text_light"
+        android:focusable="false"
+        android:focusableInTouchMode="true" />
 
     <Button
         android:layout_width="match_parent"
