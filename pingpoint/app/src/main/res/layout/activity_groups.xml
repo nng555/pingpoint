@@ -10,17 +10,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/post_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Groups"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+    <TextView
+        android:layout_width="343dp"
+        android:layout_height="73dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="GROUPS"
+        android:id="@+id/textView2"
+        android:textSize="50dp"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/wallet_holo_blue_light" />
 
     <ListView
         android:id="@+id/posts_listview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
+        android:layout_height="330dp" />
+
+    <Button
+        android:layout_width="338dp"
+        android:layout_height="match_parent"
+        android:text="NEW GROUP"
+        android:id="@+id/button2"
+        android:textSize="30dp"
+        android:textColorHighlight="@color/common_signin_btn_text_light"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
