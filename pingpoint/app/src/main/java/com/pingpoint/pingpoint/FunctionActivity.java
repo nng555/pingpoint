@@ -21,6 +21,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.widget.Toast;
 import android.content.IntentSender;
 
@@ -43,6 +45,7 @@ public class FunctionActivity extends Activity
     private static final long FASTEST_INTERVAL =
             MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
     private GoogleMap theMap;
+    LatLng myPosition;
     private LocationClient mLocationClient;
     boolean mUpdatesRequested;
     private Location poo;
@@ -58,18 +61,37 @@ public class FunctionActivity extends Activity
         decorView.setSystemUiVisibility(uiOptions);
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
         mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        Location location = locationManager.getLastKnownLocation(provider);
+        if(location!=null) {
+            // Getting latitude of the current location
+            double latitude = location.getLatitude();
+
+            // Getting longitude of the current location
+            double longitude = location.getLongitude();
+
+            // Creating a LatLng object for the current location
+            LatLng latLng = new LatLng(latitude, longitude);
+
+            myPosition = new LatLng(latitude, longitude);
+
+            theMap.addMarker(new MarkerOptions().position(myPosition).title("Start"));
+        }
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
         mLocationClient.connect();
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
 
         if(!fuckMeInAss())
         {
@@ -77,8 +99,8 @@ public class FunctionActivity extends Activity
         }
         while (poo != null) {
             poo = mLocationClient.getLastLocation();
-            Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
-                    poo.getLongitude())).visible(true));
+            //Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
+            //        poo.getLongitude())).visible(true));
         }
 
 
@@ -103,9 +125,13 @@ public class FunctionActivity extends Activity
             // Check if we were successful in obtaining the map.
             if (theMap != null) {
                 // The Map is verified. It is now safe to manipulate the map.
-
+                setUpMap();
             }
         }
+    }
+
+    private void setUpMap() {
+        theMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
     protected void onStart()
@@ -124,6 +150,11 @@ public class FunctionActivity extends Activity
         //mEditor.putBoolean("KEY_UPDATES_ON", mUpdatesRequested);
         //mEditor.commit();
         super.onPause();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
     }
 
     public void onConnected(Bundle ed)
