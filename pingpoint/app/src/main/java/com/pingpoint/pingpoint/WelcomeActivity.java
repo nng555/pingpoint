@@ -18,6 +18,12 @@ public class WelcomeActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_welcome);
 
+    View decorView = getWindow().getDecorView();
+    int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+    decorView.setSystemUiVisibility(uiOptions);
+    ActionBar actionBar = getActionBar();
+    actionBar.hide();
+
     // Log in button click handler
     Button loginButton = (Button) findViewById(R.id.login_button);
     loginButton.setOnClickListener(new OnClickListener() {
