@@ -33,7 +33,7 @@ public class FriendAdapter extends ArrayAdapter<PingFriends> {
 
         TextView nameView = (TextView) convertView.findViewById(R.id.friend_name);
 
-        nameView.setText(friends.getUsername());
+        nameView.setText(friends.getFriend());
 
         return convertView;
     }

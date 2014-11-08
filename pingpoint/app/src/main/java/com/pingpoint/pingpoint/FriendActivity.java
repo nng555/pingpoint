@@ -45,10 +45,10 @@ public class FriendActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
         mListView = (ListView) findViewById(R.id.friend_list);
-        mAdapter = new FriendAdapter(this, new ArrayList<ParseUser>());
+        mAdapter = new FriendAdapter(this, new ArrayList<PingFriends>());
         mListView.setAdapter(mAdapter);
 
-        //updateData();
+        updateData();
         Button createfriendButton = (Button) findViewById(R.id.add_friend_button);
 
         createfriendButton.setOnClickListener(new
@@ -56,7 +56,7 @@ public class FriendActivity extends Activity {
         OnClickListener() {
             public void onClick(View v) {
                 popup();
-                //updateData();
+                updateData();
             }
         });
     }
@@ -68,46 +68,35 @@ public class FriendActivity extends Activity {
                 .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        ParseQuery<ParseUser> query = ParseUser.getQuery();
-                        query.whereEqualTo("username", value);
-                        query.findInBackground(new FindCallback<ParseUser>() {
-                            public void done(List<ParseUser> user, ParseException e) {
-                                if (e == null) {
-                                    ParseUser friend = user.get(0);
-                                    PingFriends friend1 = new PingFriends();
-                                    PingFriends friend2 = new PingFriends();
-                                    friend1.setUser(friend);
-                                    friend1.setFriend(ParseUser.getCurrentUser());
-                                    friend2.setUser(ParseUser.getCurrentUser());
-                                    friend2.setFriend(friend);
-                                    friend1.saveEventually();
-                                    friend2.saveEventually();
-
-                                }
-                            }
-                        });
+                        String friend = input.getText().toString();
+                        PingFriends friend1 = new PingFriends();
+                        friend1.setFriend(friend);
+                        friend1.setUser(ParseUser.getCurrentUser().getUsername());
+                        friend1.saveInBackground();
+                        PingFriends friend2 = new PingFriends();
+                        friend2.setFriend(ParseUser.getCurrentUser().getUsername());
+                        friend2.setUser(friend);
+                        friend2.saveInBackground();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Do nothing.
             }
         }).show();
-        //updateData();
     }
-/*
+
     public void updateData(){
         ParseQuery<PingFriends> query = ParseQuery.getQuery(PingFriends.class);
-        query.whereEqualTo("base", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<ParseUser>() {
+        query.whereEqualTo("base", ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<PingFriends>() {
             @Override
-            public void done(List<ParseUser> friends, ParseException error) {
-                if(friends != null){
+            public void done(List<PingFriends> friend, ParseException error) {
+                if(friend != null){
                     mAdapter.clear();
-                    mAdapter.add(friends);
+                    mAdapter.addAll(friend);
                 }
             }
         });
     }
-    */
+
 }
