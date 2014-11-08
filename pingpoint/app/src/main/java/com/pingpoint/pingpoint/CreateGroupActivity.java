@@ -48,6 +48,7 @@ public class CreateGroupActivity extends Activity {
         PingGroup group = new PingGroup();
         group.setName(name);
         group.setUser(ParseUser.getCurrentUser());
+        group.addFriend(ParseUser.getCurrentUser());
         group.saveEventually();
         startActivity(new Intent(CreateGroupActivity.this, GroupActivity.class));
     }
