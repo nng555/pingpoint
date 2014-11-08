@@ -14,6 +14,7 @@ public class Application extends android.app.Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    ParseObject.registerSubclass(PingUser.class);
     Parse.initialize(this, "SGiQCn0KyqRVzidsnDTuG7Hg1GKK4ZE6pSKj50hE",
         "xfsY6e3IcrYbFkEsldwZYTzJlRAg2gJJTvSJ9cqi");
   }
