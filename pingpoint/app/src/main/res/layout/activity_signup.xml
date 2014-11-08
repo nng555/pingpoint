@@ -11,13 +11,15 @@
 
         <LinearLayout
             style="LoginFormContainer"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/username_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="prompt_username"
+                android:hint="Enter Desired Username"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -26,7 +28,7 @@
                 android:id="@+id/password_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="prompt_password"
+                android:hint="Enter Desired Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -35,7 +37,7 @@
                 android:id="@+id/password_again_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="prompt_password_again"
+                android:hint="Repeat Desired password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -51,7 +53,7 @@
                 android:layout_marginTop="16dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
-                android:text="signup" />
+                android:text="Sign the Fuck Up" />
         </LinearLayout>
     </ScrollView>
 
