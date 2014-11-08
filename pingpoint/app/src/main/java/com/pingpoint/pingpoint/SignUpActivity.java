@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.ActionBar;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -30,7 +31,11 @@ public class SignUpActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_signup);
-
+    View decorView = getWindow().getDecorView();
+    int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+    decorView.setSystemUiVisibility(uiOptions);
+    ActionBar actionBar = getActionBar();
+    actionBar.hide();
     // Set up the signup form.
     usernameEditText = (EditText) findViewById(R.id.username_edit_text);
 
