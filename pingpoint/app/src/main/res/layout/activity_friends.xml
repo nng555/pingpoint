@@ -37,7 +37,7 @@
         android:background="#ffffff" />
 
     <Button
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="ADD FRIEND"
         android:id="@+id/button"
