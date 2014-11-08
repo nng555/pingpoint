@@ -1,9 +1,9 @@
 package com.pingpoint.pingpoint;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class FunctionActivity extends FragmentActivity {
+public class FunctionActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
