@@ -69,7 +69,7 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
         final PingGroup group = mAdapter.getItem(position);
         final EditText input = new EditText(this);
         new AlertDialog.Builder(this)
-                .setTitle("Add a friend:")
+                .setTitle("Add a member:")
                 .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -79,7 +79,7 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
                         query.findInBackground(new FindCallback<ParseUser>() {
                             public void done(List<ParseUser> user, ParseException e) {
                                 if (e == null) {
-                                    group.addFriend(user.get(0));
+                                    group.addMember(user.get(0));
                                 }
                             }
                         });
@@ -93,7 +93,7 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
 
     public void updateData(){
         ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
-        query.whereEqualTo("friends", ParseUser.getCurrentUser());
+        query.whereEqualTo("members", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<PingGroup>() {
             @Override
             public void done(List<PingGroup> groups, ParseException error) {

@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import android.app.ActionBar;
+
+import java.util.List;
 
 
 /**
@@ -31,7 +37,7 @@ public class BothActivity extends Activity {
         friendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
-                startActivity(new Intent(BothActivity.this, FunctionActivity.class));
+                startActivity(new Intent(BothActivity.this, FriendActivity.class));
             }
         });
 
@@ -40,7 +46,7 @@ public class BothActivity extends Activity {
         signupButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
-                startActivity(new Intent(BothActivity.this, GroupActivity.class));
+                startActivity(new Intent(BothActivity.this, FunctionActivity.class));
             }
         });
 

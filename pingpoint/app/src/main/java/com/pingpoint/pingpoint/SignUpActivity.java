@@ -16,6 +16,7 @@ import android.app.ActionBar;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.parse.ParseQuery;
 
 /**
  * Activity which displays a login screen to the user.

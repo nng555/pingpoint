@@ -27,16 +27,16 @@ public class PingGroup extends ParseObject {
 
     public ParseUser getUser() {return getParseUser("user"); }
 
-    public void addFriend(ParseUser user) {
-        ArrayList<ParseUser> friend = (ArrayList<ParseUser>) get("friends");
-        if (friend != null) {
-            friend.add(user);
-            put("friends", friend);
+    public void addMember(ParseUser user) {
+        ArrayList<ParseUser> member = (ArrayList<ParseUser>) get("members");
+        if (member != null) {
+            member.add(user);
+            put("members", member);
             saveInBackground();
         } else {
-            friend = new ArrayList<ParseUser>();
-            friend.add(user);
-            put("friends", friend);
+            member = new ArrayList<ParseUser>();
+            member.add(user);
+            put("members", member);
             saveInBackground();
         }
 
