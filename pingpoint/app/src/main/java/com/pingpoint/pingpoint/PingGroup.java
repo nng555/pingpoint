@@ -10,14 +10,10 @@ import com.parse.ParseUser;
  * Data model for a post.
  */
 @ParseClassName("Users")
-public class PingUser extends ParseObject {
-    public ParseUser getUser() {
-        return getParseUser("user");
-    }
+public class PingGroup extends ParseObject {
 
-    public void setUser(ParseUser value) {
-        put("user", value);
+    public void setName(String name) {
+        put("name", name);
     }
-
 
 }

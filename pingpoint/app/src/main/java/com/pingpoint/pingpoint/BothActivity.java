@@ -33,7 +33,7 @@ public class BothActivity extends Activity {
         signupButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
-                startActivity(new Intent(BothActivity.this, GroupActivity.class));
+                startActivity(new Intent(BothActivity.this, FunctionActivity.class));
             }
         });
 
