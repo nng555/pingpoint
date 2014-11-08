@@ -9,16 +9,18 @@
     android:paddingTop="16dp"
     tools:context=".WelcomeActivity"
     android:background="#ffc9424b">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher"
         android:layout_alignBottom="@+id/textview_69"
-        android:layout_alignEnd="@+id/textview_69"
-        android:layout_marginRight="-55dp"
-        android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@+id/textview_69"
+        android:layout_toLeftOf="@+id/textView4"
+        android:layout_toStartOf="@+id/textView4" />
     <TextView
         android:id="@+id/textview_69"
         android:layout_width="wrap_content"
