@@ -45,7 +45,7 @@ public class FunctionActivity extends Activity
     private LocationClient mLocationClient;
     boolean mUpdatesRequested;
     private Location poo;
-    private LocationRequest mLocationRequest;
+    LocationRequest mLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +67,17 @@ public class FunctionActivity extends Activity
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
         mLocationClient.connect();
-        poo = mLocationClient.getLastLocation();
-        /*while(!fuckMeInAss())
+
+        if(!fuckMeInAss())
         {
             poo = null;
         }
-        */
-        Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
+        if (poo != null) {
+            poo = mLocationClient.getLastLocation();
+            Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
+                    poo.getLongitude())).visible(true));
+        }
+
 
 
 
@@ -122,14 +126,16 @@ public class FunctionActivity extends Activity
     public void onConnected(Bundle ed)
     {
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+
+        if (mUpdatesRequested) {
+         //   mLocationClient.requestLocationUpdates(mLocationRequest, this);
+        }
     }
     public void onDisconnected(){
         // Display the connection status
         Toast.makeText(this, "Disconnected. Please re-connect.",
                 Toast.LENGTH_SHORT).show();
-        /*if (mUpdatesRequested) {
-            mLocationClient.requestLocationUpdates(mLocationRequest, this);
-        }*/
+
     }
     public void onConnectionFailed(ConnectionResult connectionResult){
 
