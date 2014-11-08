@@ -39,6 +39,7 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         setUpMapIfNeeded();
         theMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(this, this, this);
+        mLocationClient.connect();
         Location poo = new Location(mLocationClient.getLastLocation());
 
         Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
