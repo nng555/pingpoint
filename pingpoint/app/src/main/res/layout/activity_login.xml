@@ -5,13 +5,14 @@
         style="@android:style/Theme.Holo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
         tools:context=".BothActivity"
         android:clickable="false"
-        android:background="#ffc9424b">
+        android:background="#ffc9424b"
+        android:id="@+id/">
 
             <TextView
                 android:id="@+id/textView3"
@@ -57,6 +58,7 @@
                 android:singleLine="true"
                 android:imeActionId="@+id/edittext_action_login"
                 android:hint="Enter Password"
+                android:fontFamily="sans-serif"
                 android:imeActionLabel="login"
                 android:imeOptions="actionUnspecified"
                 android:background="#ffffff"
@@ -74,12 +76,14 @@
                 android:id="@+id/action_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="login"
+                android:text="LOGIN"
                 android:background="#ffffff"
                 android:textColor="#ffc9424b"
                 android:textSize="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="340dp"
-                android:layout_alignTop="@+id/textView3" />
+                android:layout_alignTop="@+id/textView3"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
         </RelativeLayout>
