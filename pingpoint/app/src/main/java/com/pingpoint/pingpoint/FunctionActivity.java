@@ -84,7 +84,7 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
-            theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
+            //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             theMap.setOnMapClickListener(this);
 
@@ -98,9 +98,9 @@ public class FunctionActivity extends Activity
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
     }
 
-    public void onMapClick(LatLng poo)
+    public void onMapClick(LatLng ping)
     {
-        theMap.addMarker(new MarkerOptions().position(poo).visible(true));
+        theMap.addMarker(new MarkerOptions().position(ping).visible(true));
     }
     private void setUpMapIfNeeded()
     {

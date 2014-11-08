@@ -60,9 +60,30 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
 
         OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(GroupActivity.this, CreateGroupActivity.class));
+                popup();
             }
         });
+    }
+
+    public void popup() {
+        final EditText input = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Create a group:")
+                .setView(input)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        PingGroup group = new PingGroup();
+                        group.setName(value);
+                        group.setUser(ParseUser.getCurrentUser());
+                        group.addMember(ParseUser.getCurrentUser());
+                        group.saveInBackground();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing.
+            }
+        }).show();
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
