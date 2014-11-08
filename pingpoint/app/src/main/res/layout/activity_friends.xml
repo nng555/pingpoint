@@ -1,20 +1,19 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    style="@android:style/Theme.Holo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".FriendActivity"
-    android:weightSum="1"
-    android:background="#ffc9424b"
-    android:textAlignment="center">
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".BothActivity"
+    android:clickable="false"
+    android:background="#ffc9424b">
 
     <TextView
-        android:layout_width="286dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="FRIENDS"
@@ -22,8 +21,8 @@
         android:textSize="50dp"
         android:textAlignment="viewEnd"
         android:textColor="#ffffff"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="30dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="0dp" />
 
     <ListView
         android:id="@+id/posts_listview"
@@ -34,7 +33,9 @@
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
-        android:background="#ffffff" />
+        android:background="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -45,8 +46,11 @@
         android:textColorHighlight="@color/common_signin_btn_text_light"
         android:textAlignment="center"
         android:background="#ffffff"
-        android:layout_marginTop="10dp"
         android:textColor="#ffc9424b"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
 
-</LinearLayout>
+</RelativeLayout>
