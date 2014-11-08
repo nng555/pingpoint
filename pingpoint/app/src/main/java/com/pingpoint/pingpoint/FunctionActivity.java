@@ -12,6 +12,7 @@ import android.view.View;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.MapFragment;
@@ -46,6 +47,7 @@ public class FunctionActivity extends Activity
     boolean mUpdatesRequested;
     private Location poo;
     LocationRequest mLocationRequest;
+    UiSettings mapSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class FunctionActivity extends Activity
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
+        mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
@@ -72,7 +75,7 @@ public class FunctionActivity extends Activity
         {
             poo = null;
         }
-        if (poo != null) {
+        while (poo != null) {
             poo = mLocationClient.getLastLocation();
             Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
                     poo.getLongitude())).visible(true));
