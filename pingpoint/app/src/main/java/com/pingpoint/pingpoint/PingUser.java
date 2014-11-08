@@ -9,7 +9,7 @@ import com.parse.ParseUser;
 /**
  * Data model for a post.
  */
-@ParseClassName("Posts")
+@ParseClassName("Users")
 public class PingUser extends ParseObject {
     public ParseUser getUser() {
         return getParseUser("user");
