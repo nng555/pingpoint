@@ -18,10 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GROUPS"
         android:id="@+id/textView2"
-        android:textSize="50dp"
+        android:textSize="60dp"
         android:textAlignment="viewEnd"
         android:textColor="#ffffff"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:id="@+id/group_list"

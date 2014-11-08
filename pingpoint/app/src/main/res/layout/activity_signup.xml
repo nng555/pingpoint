@@ -9,27 +9,28 @@
     android:paddingTop="16dp"
     tools:context=".BothActivity"
     android:clickable="false"
-    android:background="#ffc9424b">
-
+    android:background="#ffc9424b"
+    android:id="@+id/">
 
             <TextView
                 android:id="@+id/textview_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="pingpoint"
+                android:text="SIGNUP"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="70dp"
+                android:textSize="60dp"
                 android:textColor="#ffffff"
                 android:textIsSelectable="false"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp" />
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="true" />
 
-            <EditText
-                android:id="@+id/username_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Desired Username"
+    <EditText
+                    android:id="@+id/username_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+               android:hint="Enter Desired Username"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -37,7 +38,7 @@
                 android:paddingTop="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignStart="@+id/password_edit_text"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="100dp"
                 android:textSize="20dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="5dp"
@@ -88,7 +89,7 @@
                 android:id="@+id/action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="340dp"
+                android:layout_marginTop="90dp"
                 android:text="SIGN UP"
                 android:textSize="20dp"
                 android:textColor="#ffc9424b"
@@ -96,7 +97,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/textview_3"
+                android:layout_alignTop="@+id/password_again_edit_text"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp" />
-        </RelativeLayout>
+
+</RelativeLayout>

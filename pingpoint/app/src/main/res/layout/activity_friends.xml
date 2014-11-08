@@ -18,7 +18,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="FRIENDS"
         android:id="@+id/textView"
-        android:textSize="50dp"
+        android:textSize="60dp"
         android:textAlignment="viewEnd"
         android:textColor="#ffffff"
         android:layout_alignParentLeft="true"

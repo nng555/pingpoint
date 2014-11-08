@@ -1,6 +1,5 @@
-
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         style="@android:style/Theme.Holo"
         android:layout_width="match_parent"
@@ -18,16 +17,16 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="pingpoint"
+                android:text="LOGIN"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="70dp"
+                android:textSize="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="0dp"
                 android:layout_alignParentTop="false"
                 android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="false" />
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:id="@+id/username"
@@ -46,7 +45,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="100dp"
                 android:layout_alignTop="@+id/textView3" />
 
             <EditText
@@ -82,8 +81,8 @@
                 android:textSize="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="340dp"
-                android:layout_alignTop="@+id/textView3"
+                android:layout_alignTop="@+id/password"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
-        </RelativeLayout>
+                android:paddingBottom="10dp"
+                android:layout_marginTop="90dp" />
+</RelativeLayout>

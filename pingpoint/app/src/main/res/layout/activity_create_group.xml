@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@android:style/Theme.Holo"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
@@ -15,57 +15,42 @@
                 android:id="@+id/groupname_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Desired Username"
+                android:hint="Enter Desired Group Name"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="100dp"
                 android:background="#ffffff"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="5dp"
-                android:textSize="20dp"
-                android:layout_below="@+id/textView4" />
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/creategroup_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="CREATE A FUCKING GROUP IN HERE"
                 android:textColor="#ffc9424b"
                 android:background="#ffffff"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:textSize="20dp"
-                android:layout_above="@+id/textView5"
-                android:layout_alignLeft="@+id/groupname_edit_text"
-                android:layout_marginBottom="67dp" />
+                android:layout_marginTop="100dp"
+                android:layout_alignTop="@+id/groupname_edit_text"
+                android:text="CREATE" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="GROUPS"
+        android:text="ADD GROUP"
         android:id="@+id/textView4"
         android:textColor="#ffffff"
-        android:textSize="50dp"
+        android:textSize="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="0dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="COME COME FUK APART IN HERE"
-        android:id="@+id/textView5"
-        android:layout_alignParentBottom="true"
-        android:textColor="#ff4eff00"
-        android:textStyle="bold|italic"
-        android:textSize="20dp"
-        android:layout_alignRight="@+id/creategroup_button"
-        android:layout_alignEnd="@+id/creategroup_button" />
 
 </RelativeLayout>
 
