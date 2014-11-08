@@ -40,9 +40,11 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         setUpMapIfNeeded();
         theMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(this, this, this);
-        if(poo != null) {
+        mLocationClient.connect();
+        poo = new Location(mLocationClient.getLastLocation());
+
             Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
-        }
+
 
 
     }
@@ -74,7 +76,6 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
     public void onConnected(Bundle ed)
     {
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-        poo = new Location(mLocationClient.getLastLocation());
     }
     public void onDisconnected(){
         // Display the connection status
