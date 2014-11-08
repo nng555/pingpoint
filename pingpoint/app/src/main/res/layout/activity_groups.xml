@@ -8,22 +8,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GroupActivity" >
+    tools:context=".GroupActivity"
+    android:background="#ffc9424b">
 
     <TextView
-        android:layout_width="350dp"
+        android:layout_width="298dp"
         android:layout_height="70dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GROUPS"
         android:id="@+id/textView2"
         android:textSize="50dp"
         android:textAlignment="viewEnd"
-        android:textColor="@color/wallet_holo_blue_light" />
+        android:textColor="#ffffff"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp" />
 
     <ListView
         android:id="@+id/posts_listview"
         android:layout_width="fill_parent"
-        android:layout_height="350dp" />
+        android:layout_height="350dp"
+        android:background="#ffffff" />
 
     <Button
         android:layout_width="350dp"
@@ -33,6 +37,9 @@
         android:textSize="30dp"
         android:textColorHighlight="@color/common_signin_btn_text_light"
         android:layout_gravity="center_horizontal"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="#ffc9424b"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

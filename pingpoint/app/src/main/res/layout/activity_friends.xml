@@ -9,17 +9,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FriendActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#ffc9424b"
+    android:textAlignment="center">
 
     <TextView
-        android:layout_width="350dp"
+        android:layout_width="286dp"
         android:layout_height="70dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="FRIENDS"
         android:id="@+id/textView"
         android:textSize="50dp"
         android:textAlignment="viewEnd"
-        android:textColor="@color/wallet_holo_blue_light" />
+        android:textColor="#ffffff"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="30dp" />
 
     <ListView
         android:id="@+id/posts_listview"
@@ -29,15 +33,19 @@
         android:padding="0dp"
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
-        android:paddingBottom="0dp" />
+        android:paddingBottom="0dp"
+        android:background="#ffffff" />
 
     <Button
-        android:layout_width="350dp"
+        android:layout_width="335dp"
         android:layout_height="match_parent"
         android:text="ADD FRIEND"
         android:id="@+id/button"
         android:textSize="30dp"
         android:textColorHighlight="@color/common_signin_btn_text_light"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffc9424b" />
 
 </LinearLayout>

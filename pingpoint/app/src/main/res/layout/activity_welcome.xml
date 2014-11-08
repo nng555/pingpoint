@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WelcomeActivity" >
+    tools:context=".WelcomeActivity"
+    android:background="#ffc9424b">
 
     <Button
         android:id="@+id/login_button"
@@ -18,8 +19,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="128dp"
-        android:text="Login" />
+        android:layout_marginTop="210dp"
+        android:text="Login"
+        android:background="#ffffff"
+        android:textSize="20dp"
+        android:textColor="#ffc9424b" />
 
     <Button
         android:id="@+id/signup_button"
@@ -30,27 +34,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/login_button"
-        android:text="Sign Up" />
-
-    <TextView
-        android:id="@+id/textview_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brought to you by"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_marginTop="91dp"
-        android:layout_below="@+id/signup_button"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textview_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textview_1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="Apple's Future"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Sign Up"
+        android:background="#ffffff"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textColor="#ffc6c6c9" />
 
     <TextView
         android:id="@+id/textview_3"
@@ -58,8 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:text="PingPoint"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginTop="30dp"
+        android:text="pingpoint"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="70dp" />
 
 </RelativeLayout>

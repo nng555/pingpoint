@@ -7,37 +7,60 @@
     <ScrollView
         android:id="@+id/signup_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:fillViewport="false"
+        android:background="#ffc9424b">
 
         <LinearLayout
             style="LoginFormContainer"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#ffc9424b"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/textview_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="pingpoint"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="70dp"
+                android:textColor="#ffffff"
+                android:textIsSelectable="false" />
 
             <EditText
                 android:id="@+id/username_edit_text"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:hint="Enter Desired Username"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:paddingTop="20dp" />
+                android:layout_marginTop="120dp"
+                android:background="#ffffff"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="15dp" />
 
             <EditText
                 android:id="@+id/password_edit_text"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:hint="Enter Desired Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:paddingTop="20dp" />
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="15dp" />
 
             <EditText
                 android:id="@+id/password_again_edit_text"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:hint="Repeat Desired password"
                 android:inputType="textPassword"
@@ -46,17 +69,21 @@
                 android:imeActionId="@+id/edittext_action_signup"
                 android:imeActionLabel="signup"
                 android:imeOptions="actionUnspecified"
-                android:paddingTop="20dp" />
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="15dp" />
 
             <Button
                 android:id="@+id/action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:layout_marginTop="80dp"
                 android:text="SIGN UP"
-                android:textSize="50dp" />
+                android:textSize="50dp"
+                android:textColor="#ffc9424b"
+                android:background="#ffffff"
+                android:layout_marginLeft="15dp" />
         </LinearLayout>
     </ScrollView>
 
