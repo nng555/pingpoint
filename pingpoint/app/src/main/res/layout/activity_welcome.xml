@@ -49,7 +49,7 @@
         android:layout_alignTop="@+id/textview_1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
-        android:text="ASS"
+        android:text="AS"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
