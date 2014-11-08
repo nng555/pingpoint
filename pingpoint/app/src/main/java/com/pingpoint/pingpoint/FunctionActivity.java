@@ -22,6 +22,7 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         GooglePlayServicesClient.OnConnectionFailedListener{
 
     private GoogleMap theMap;
+    private LocationClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
         theMap.setMyLocationEnabled(true);
-        LocationClient mLocationClient = new LocationClient(this, this, this);
+        mLocationClient = new LocationClient(this, this, this);
         Location poo = new Location(mLocationClient.getLastLocation());
 
         Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
@@ -58,6 +59,11 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         }
     }
 
+    protected void onStart()
+    {
+        super.onStart();
+        mLocationClient.connect();
+    }
     public void onConnected(Bundle ed){}
     public void onDisconnected(){}
     public void onConnectionFailed(ConnectionResult rs){}
