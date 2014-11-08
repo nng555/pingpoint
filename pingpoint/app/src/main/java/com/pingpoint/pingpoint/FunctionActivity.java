@@ -74,8 +74,10 @@ public class FunctionActivity extends Activity
         }
         if (poo != null) {
             poo = mLocationClient.getLastLocation();
+            Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
+                    poo.getLongitude())).visible(true));
         }
-        Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
+
 
 
 
