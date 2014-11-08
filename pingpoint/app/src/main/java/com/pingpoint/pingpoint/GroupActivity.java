@@ -16,5 +16,17 @@ public class GroupActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
+
+        Button creategroupButton = (Button) findViewById(R.id.button2);
+        creategroupButton.setOnClickListener(new
+
+        OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(GroupActivity.this, CreateGroupActivity.class));
+            }
+        });
     }
+
+
+
 }

@@ -45,7 +45,17 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".CreateGroupActivity"
+            android:label="Make up your mind loser"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".FriendActivity"
+            android:label="Make up your mind loser"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".FunctionActivity"
             android:label="Make up your mind loser"
             android:screenOrientation="portrait" />
 
@@ -70,7 +80,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBOFgMl3lA60GCc2U8eBwXNcwM2LLZBMTk"/>
+            android:value="AIzaSyB1Th-J1RMILoXPLbcndoO1VrLXPXOEdAY"/>
 
     </application>
 
