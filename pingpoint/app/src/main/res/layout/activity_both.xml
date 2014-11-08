@@ -7,7 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".BothActivity" >
+    tools:context=".BothActivity"
+    android:id="@+id/"
+    android:clickable="false"
+    android:background="#ffc9424b">
 
     <Button
         android:id="@+id/friend_button"
@@ -18,8 +21,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="128dp"
-        android:text="Friends" />
+        android:layout_marginTop="160dp"
+        android:text="Friends"
+        android:background="#ffffff"
+        android:textColor="#ffc9424b"
+        android:layout_alignWithParentIfMissing="true"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/group_button"
@@ -30,38 +37,25 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/friend_button"
-        android:text="Groups" />
+        android:text="Groups"
+        android:background="#ffffff"
+        android:textColor="#ffc9424b"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Logout"
+        android:background="#ffffff"
+        android:layout_below="@+id/group_button"
+        android:layout_marginTop="50dp"
+        android:layout_alignWithParentIfMissing="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/group_button"
-        android:text="Logout" />
-
-    <TextView
-        android:id="@+id/textview_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brought to you by"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_marginTop="91dp"
-        android:layout_below="@+id/logout_button"
+        android:textSize="20dp"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textview_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textview_1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="Apple's Future"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textview_3"
@@ -70,7 +64,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
-        android:text="PingPoint"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="pingpoint"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="70dp"
+        android:textColor="#ffffff"
+        android:textIsSelectable="true" />
 
 </RelativeLayout>
