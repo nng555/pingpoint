@@ -25,6 +25,7 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
 
     private GoogleMap theMap;
     private LocationClient mLocationClient;
+    private Location poo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         theMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(this, this, this);
         mLocationClient.connect();
-        Location poo = new Location(mLocationClient.getLastLocation());
 
         Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
 
@@ -70,6 +70,7 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
     public void onConnected(Bundle ed)
     {
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        poo = new Location(mLocationClient.getLastLocation());
     }
     public void onDisconnected(){}
     public void onConnectionFailed(ConnectionResult connectionResult){
