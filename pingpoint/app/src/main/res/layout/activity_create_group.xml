@@ -41,13 +41,13 @@
                 android:text="CREATE" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ADD GROUP"
         android:id="@+id/textView4"
         android:textColor="#ffffff"
-        android:textSize="60dp"
+        android:textSize="59dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="0dp" />

@@ -10,8 +10,7 @@
         android:paddingTop="16dp"
         tools:context=".BothActivity"
         android:clickable="false"
-        android:background="#ffc9424b"
-        android:id="@+id/">
+        android:background="#ffc9424b">
 
             <TextView
                 android:id="@+id/textView3"

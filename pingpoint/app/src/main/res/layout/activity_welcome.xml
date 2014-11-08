@@ -20,7 +20,7 @@
         android:text="pingpoint"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff"
-        android:textSize="70dp" />
+        android:textSize="75dp" />
 
     <Button
         android:id="@+id/signup_button"

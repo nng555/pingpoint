@@ -26,10 +26,11 @@
     <ListView
         android:id="@+id/group_list"
         android:layout_width="fill_parent"
-        android:layout_height="370dp"
+        android:layout_height="350dp"
         android:background="#ffffff"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:touchscreenBlocksFocus="false" />
 
     <Button
         android:layout_width="match_parent"
