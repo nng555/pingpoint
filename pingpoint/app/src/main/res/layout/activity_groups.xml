@@ -25,7 +25,7 @@
         android:layout_marginTop="0dp" />
 
     <ListView
-        android:id="@+id/posts_listview"
+        android:id="@+id/group_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
