@@ -33,9 +33,7 @@
         android:touchscreenBlocksFocus="false"
         android:choiceMode="none"
         tools:listitem="@android:layout/simple_list_item_2"
-        android:divider="@color/common_signin_btn_text_light"
-        android:focusable="false"
-        android:focusableInTouchMode="true" />
+        />
 
     <Button
         android:layout_width="match_parent"
