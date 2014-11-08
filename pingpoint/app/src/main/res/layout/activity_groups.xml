@@ -13,8 +13,8 @@
     android:background="#ffc9424b">
 
     <TextView
-        android:layout_width="298dp"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GROUPS"
         android:id="@+id/textView2"
@@ -27,7 +27,7 @@
     <ListView
         android:id="@+id/posts_listview"
         android:layout_width="fill_parent"
-        android:layout_height="350dp"
+        android:layout_height="370dp"
         android:background="#ffffff" />
 
     <Button

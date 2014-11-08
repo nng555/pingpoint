@@ -37,10 +37,11 @@
                 android:paddingTop="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignStart="@+id/password_edit_text"
-                android:layout_marginTop="240dp"
+                android:layout_marginTop="180dp"
                 android:textSize="20dp"
                 android:paddingBottom="10dp"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:layout_alignTop="@+id/textview_3" />
 
             <EditText
                 android:id="@+id/password_edit_text"
@@ -85,12 +86,13 @@
                 android:id="@+id/action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="400dp"
+                android:layout_marginTop="340dp"
                 android:text="SIGN UP"
                 android:textSize="20dp"
                 android:textColor="#ffc9424b"
                 android:background="#ffffff"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/textview_3" />
         </RelativeLayout>
