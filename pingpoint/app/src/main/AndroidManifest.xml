@@ -59,6 +59,10 @@
         </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.google.android.maps.v2.AIzaSyBOFgMl3lA60GCc2U8eBwXNcwM2LLZBMTk"
+            android:value="AIzaSyBOFgMl3lA60GCc2U8eBwXNcwM2LLZBMTk"/>
+
     </application>
 
 </manifest>
