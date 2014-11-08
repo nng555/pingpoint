@@ -16,6 +16,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
+import android.widget.Toast;
+import android.content.IntentSender;
 
 
 public class FunctionActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
@@ -64,9 +66,14 @@ public class FunctionActivity extends Activity implements GooglePlayServicesClie
         super.onStart();
         mLocationClient.connect();
     }
-    public void onConnected(Bundle ed){}
+    public void onConnected(Bundle ed)
+    {
+        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+    }
     public void onDisconnected(){}
-    public void onConnectionFailed(ConnectionResult rs){}
+    public void onConnectionFailed(ConnectionResult connectionResult){
+
+    }
 
 
 
