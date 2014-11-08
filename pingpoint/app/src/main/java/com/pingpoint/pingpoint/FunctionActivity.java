@@ -59,7 +59,7 @@ public class FunctionActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        //setUpMapIfNeeded();
         setUpGoogleApiClientIfNeeded();
         mGoogleApiClient.connect();
     }
