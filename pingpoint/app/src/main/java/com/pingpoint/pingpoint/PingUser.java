@@ -18,4 +18,6 @@ public class PingUser extends ParseObject {
     public void setUser(ParseUser value) {
         put("user", value);
     }
+
+
 }

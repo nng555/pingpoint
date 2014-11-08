@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import com.parse.ParseUser;
+
 
 /**
  * Activity which displays a registration screen to the user.
@@ -36,10 +38,14 @@ public class BothActivity extends Activity {
         });
 
         Button logoutButton = (Button) findViewById(R.id.logout_button);
-        signupButton.setOnClickListener(new OnClickListener() {
+        logoutButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
-                startActivity(new Intent(BothActivity.this, GroupActivity.class));
+                ParseUser.logOut();
+                // Start and intent for the dispatch activity
+                Intent intent = new Intent(BothActivity.this, DispatchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
