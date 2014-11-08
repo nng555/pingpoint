@@ -18,12 +18,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="240dp"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="180dp"
         android:text="Login"
         android:background="#ffffff"
         android:textSize="20dp"
-        android:textColor="#ffc9424b" />
+        android:textColor="#ffc9424b"
+        android:layout_alignTop="@+id/textview_3" />
 
     <Button
         android:id="@+id/signup_button"
