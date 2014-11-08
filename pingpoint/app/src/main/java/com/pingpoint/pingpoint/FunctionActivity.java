@@ -26,12 +26,14 @@ import android.location.LocationManager;
 import android.widget.Toast;
 import android.content.IntentSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+
 
 
 public class FunctionActivity extends Activity
         implements GooglePlayServicesClient.ConnectionCallbacks,
                    GooglePlayServicesClient.OnConnectionFailedListener,
-                   LocationListener{
+                   LocationListener, GoogleMap.OnMapClickListener{
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
@@ -49,7 +51,6 @@ public class FunctionActivity extends Activity
     LatLng myPosition;
     private LocationClient mLocationClient;
     boolean mUpdatesRequested;
-    private Location poo;
     LocationRequest mLocationRequest;
     UiSettings mapSettings;
 
@@ -71,7 +72,7 @@ public class FunctionActivity extends Activity
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
         Location location = locationManager.getLastKnownLocation(provider);
-        if(location!=null) {
+        if (location != null) {
             // Getting latitude of the current location
             double latitude = location.getLatitude();
 
@@ -83,8 +84,10 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
-            theMap.addMarker(new MarkerOptions().position(myPosition).title("Start"));
-            theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15  ));
+            theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
+            theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+            theMap.setOnMapClickListener(this);
+
         }
         mLocationClient = new LocationClient(this, this, this);
         mUpdatesRequested = false;
@@ -93,31 +96,12 @@ public class FunctionActivity extends Activity
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-
-
-        if(!fuckMeInAss())
-        {
-            poo = null;
-        }
-        while (poo != null) {
-            poo = mLocationClient.getLastLocation();
-            //Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(),
-            //        poo.getLongitude())).visible(true));
-        }
-
-
-
-
     }
 
-    private boolean fuckMeInAss()
+    public void onMapClick(LatLng poo)
     {
-        if(mLocationClient.isConnected())
-            return true;
-        else
-            return false;
+        theMap.addMarker(new MarkerOptions().position(poo).visible(true));
     }
-
     private void setUpMapIfNeeded()
     {
         // Do a null check to confirm that we have not already instantiated the map.
