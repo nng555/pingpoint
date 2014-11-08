@@ -11,8 +11,8 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:layout_width="343dp"
-        android:layout_height="73dp"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GROUPS"
         android:id="@+id/textView2"
@@ -23,10 +23,10 @@
     <ListView
         android:id="@+id/posts_listview"
         android:layout_width="fill_parent"
-        android:layout_height="330dp" />
+        android:layout_height="350dp" />
 
     <Button
-        android:layout_width="338dp"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:text="NEW GROUP"
         android:id="@+id/button2"
