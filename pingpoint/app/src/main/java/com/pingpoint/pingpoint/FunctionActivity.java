@@ -1,48 +1,31 @@
 package com.pingpoint.pingpoint;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.SupportMapFragment;
-
-import android.location.Location;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.app.FragmentTransaction;
 import android.app.ActionBar;
+import android.view.ViewGroup;
+import android.view.View;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.model.Marker;
+import android.location.Location;
+import android.widget.Toast;
+import android.content.IntentSender;
 
-/**
- * This demo shows how GMS Location can be used to check for changes to the users location.  The
- * "My Location" button uses GMS Location to set the blue dot representing the users location. To
- * track changes to the users location on the map, we request updates from the
- * {@link com.google.android.gms.location.FusedLocationProviderApi}.
- */
-public class FunctionActivity extends FragmentActivity
-        implements
-        ConnectionCallbacks,
-        OnConnectionFailedListener,
-        LocationListener,
-        OnMyLocationButtonClickListener {
 
-    private GoogleMap mMap;
+public class FunctionActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
+        GooglePlayServicesClient.OnConnectionFailedListener{
 
-    private GoogleApiClient mGoogleApiClient;
-    private TextView mMessageView;
-
-    // These settings are the same as the settings for the map. They will in fact give you updates
-    // at the maximal rates currently possible.
-    private static final LocationRequest REQUEST = LocationRequest.create()
-            .setInterval(5000)         // 5 seconds
-            .setFastestInterval(16)    // 16ms = 60fps
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    private GoogleMap theMap;
+    private LocationClient mLocationClient;
+    private Location poo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,101 +36,77 @@ public class FunctionActivity extends FragmentActivity
         decorView.setSystemUiVisibility(uiOptions);
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-        //mMessageView = (TextView) findViewById(R.id.message_text);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
-        setUpGoogleApiClientIfNeeded();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.disconnect();
+        theMap.setMyLocationEnabled(true);
+        mLocationClient = new LocationClient(this, this, this);
+        mLocationClient.connect();
+        while(!fuckMeInAss())
+        {
+            poo = null;
         }
+        poo = new Location(mLocationClient.getLastLocation());
+        Marker newMarker = theMap.addMarker(new MarkerOptions().position(new LatLng(poo.getLatitude(), poo.getLongitude())).visible(true));
+
+
+
     }
 
-    private void setUpMapIfNeeded() {
+    private boolean fuckMeInAss()
+    {
+        if(mLocationClient.isConnected())
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private void setUpMapIfNeeded()
+    {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+        if (theMap == null) {
+            theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                mMap.setMyLocationEnabled(true);
-                mMap.setOnMyLocationButtonClickListener(this);
+            if (theMap != null) {
+                // The Map is verified. It is now safe to manipulate the map.
+
             }
         }
     }
 
-    private void setUpGoogleApiClientIfNeeded() {
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .build();
-        }
+    protected void onStart()
+    {
+        super.onStart();
+        mLocationClient.connect();
+    }
+    protected void onStop() {
+        // Disconnecting the client invalidates it.
+        mLocationClient.disconnect();
+        super.onStop();
+    }
+    public void onConnected(Bundle ed)
+    {
+        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+    }
+    public void onDisconnected(){
+        // Display the connection status
+        Toast.makeText(this, "Disconnected. Please re-connect.",
+                Toast.LENGTH_SHORT).show();
+    }
+    public void onConnectionFailed(ConnectionResult connectionResult){
+
     }
 
-    /**
-     * Button to get current Location. This demonstrates how to get the current Location as required
-     * without needing to register a LocationListener.
+
+
+    /* updateLocation()
+     * - Get Own User Location
+     * - Upload said Location to server
+     * - Bring back list of EVERY thing in server (AKA GROUP)
+     * - Display other locations as PINGS
      */
-    public void showMyLocation(View view) {
-        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-            String msg = "Location = "
-                    + LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    /**
-     * Implementation of {@link LocationListener}.
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-        mMessageView.setText("Location = " + location);
-    }
-
-    /**
-     * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
-     */
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient,
-                REQUEST,
-                this);  // LocationListener
-    }
-
-    /**
-     * Callback called when disconnected from GCore. Implementation of {@link ConnectionCallbacks}.
-     */
-    @Override
-    public void onConnectionSuspended(int cause) {
-        // Do nothing
-    }
-
-    /**
-     * Implementation of {@link OnConnectionFailedListener}.
-     */
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        // Do nothing
-    }
-
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
-    }
+    /* */
 }

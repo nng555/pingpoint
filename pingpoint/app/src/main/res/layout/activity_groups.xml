@@ -25,19 +25,19 @@
         android:layout_marginTop="0dp" />
 
     <ListView
-        android:id="@+id/posts_listview"
+        android:id="@+id/group_list"
         android:layout_width="fill_parent"
         android:layout_height="370dp"
         android:background="#ffffff" />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="NEW GROUP"
         android:id="@+id/button2"
         android:textSize="30dp"
         android:textColorHighlight="@color/common_signin_btn_text_light"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|bottom"
         android:textAlignment="center"
         android:textColor="#ffc9424b"
         android:background="#ffffff"

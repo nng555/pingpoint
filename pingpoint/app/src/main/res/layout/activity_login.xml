@@ -68,7 +68,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="false"
                 android:layout_marginTop="5dp"
-                android:shadowColor="@color/common_signin_btn_dark_text_disabled"
                 android:layout_below="@+id/username" />
 
             <Button

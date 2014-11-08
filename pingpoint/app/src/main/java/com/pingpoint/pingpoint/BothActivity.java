@@ -31,7 +31,7 @@ public class BothActivity extends Activity {
         friendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
-                startActivity(new Intent(BothActivity.this, FriendActivity.class));
+                startActivity(new Intent(BothActivity.this, FunctionActivity.class));
             }
         });
 
@@ -40,7 +40,7 @@ public class BothActivity extends Activity {
         signupButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
-                startActivity(new Intent(BothActivity.this, FunctionActivity.class));
+                startActivity(new Intent(BothActivity.this, GroupActivity.class));
             }
         });
 

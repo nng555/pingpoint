@@ -2,16 +2,36 @@ package com.pingpoint.pingpoint;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.app.ActionBar;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
+
+import com.parse.ParseQuery;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+
+import java.util.ArrayList;
+import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.text.Editable;
+import android.widget.EditText;
+
 
 /**
  * Activity which displays a registration screen to the user.
  */
-public class GroupActivity extends Activity {
+public class GroupActivity extends Activity implements AdapterView.OnItemClickListener{
+
+    private ListView mListView;
+    private GroupAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +43,51 @@ public class GroupActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
 
+
+        mListView = (ListView) findViewById(R.id.group_list);
+        mAdapter = new GroupAdapter(this, new ArrayList<PingGroup>());
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
+
         Button creategroupButton = (Button) findViewById(R.id.button2);
+
+        updateData();
         creategroupButton.setOnClickListener(new
 
         OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(GroupActivity.this, CreateGroupActivity.class));
+            }
+        });
+    }
+
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        PingGroup group = mAdapter.getItem(position);
+        final EditText input = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Add a friend:")
+                .setView(input)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Editable value = input.getText();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing.
+            }
+        }).show();
+    }
+
+    public void updateData(){
+        ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
+        query.findInBackground(new FindCallback<PingGroup>() {
+
+            @Override
+            public void done(List<PingGroup> groups, ParseException error) {
+                if(groups != null){
+                    mAdapter.clear();
+                    mAdapter.addAll(groups);
+                }
             }
         });
     }
