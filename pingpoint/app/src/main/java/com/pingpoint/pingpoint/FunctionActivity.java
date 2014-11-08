@@ -103,9 +103,13 @@ public class FunctionActivity extends Activity
             // Check if we were successful in obtaining the map.
             if (theMap != null) {
                 // The Map is verified. It is now safe to manipulate the map.
-
+                setUpMap();
             }
         }
+    }
+
+    private void setUpMap() {
+        theMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
     protected void onStart()
@@ -124,6 +128,11 @@ public class FunctionActivity extends Activity
         //mEditor.putBoolean("KEY_UPDATES_ON", mUpdatesRequested);
         //mEditor.commit();
         super.onPause();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
     }
 
     public void onConnected(Bundle ed)
