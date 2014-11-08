@@ -16,6 +16,10 @@ import android.widget.TextView;
 import com.parse.ParseQuery;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.GetCallback;
+import com.parse.FindCallback;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +66,23 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        PingGroup group = mAdapter.getItem(position);
+        final PingGroup group = mAdapter.getItem(position);
         final EditText input = new EditText(this);
         new AlertDialog.Builder(this)
                 .setTitle("Add a friend:")
                 .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Editable value = input.getText();
+                        String value = input.getText().toString();
+                        ParseQuery<ParseUser> query = ParseUser.getQuery();
+                        query.whereEqualTo("username", value);
+                        query.findInBackground(new FindCallback<ParseUser>() {
+                            public void done(List<ParseUser> user, ParseException e) {
+                                if (e == null) {
+                                    group.addFriend(user.get(0));
+                                }
+                            }
+                        });
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -80,8 +93,8 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
 
     public void updateData(){
         ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
+        query.whereEqualTo("friends", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<PingGroup>() {
-
             @Override
             public void done(List<PingGroup> groups, ParseException error) {
                 if(groups != null){
