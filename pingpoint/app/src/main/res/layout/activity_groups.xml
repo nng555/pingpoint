@@ -30,7 +30,8 @@
         android:background="#ffffff"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:touchscreenBlocksFocus="false" />
+        android:touchscreenBlocksFocus="false"
+        android:choiceMode="none" />
 
     <Button
         android:layout_width="match_parent"
