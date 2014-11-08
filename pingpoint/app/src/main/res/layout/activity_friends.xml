@@ -43,7 +43,6 @@
         android:text="ADD FRIEND"
         android:id="@+id/button"
         android:textSize="30dp"
-        android:textColorHighlight="@color/common_signin_btn_text_light"
         android:textAlignment="center"
         android:background="#ffffff"
         android:textColor="#ffc9424b"
