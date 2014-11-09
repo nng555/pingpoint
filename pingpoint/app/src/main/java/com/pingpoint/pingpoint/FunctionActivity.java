@@ -87,6 +87,7 @@ public class FunctionActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
+        setUpTabs();
         /*
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -177,6 +178,33 @@ public class FunctionActivity extends Activity
             }
         });
     }
+    private void setupTabs() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        Tab tab1 = actionBar
+                .newTab()
+                .setText("Friends")
+                .setIcon(R.drawable.ic_home)
+                .setTabListener(
+                        new FragmentTabListener<FirstFragment>(R.id.flContainer, this, "Friends",
+                                FirstFragment.class));
+
+        actionBar.addTab(tab1);
+        actionBar.selectTab(tab1);
+
+        Tab tab2 = actionBar
+                .newTab()
+                .setText("Groups")
+                .setIcon(R.drawable.ic_mentions)
+                .setTabListener(
+                        new FragmentTabListener<SecondFragment>(R.id.flContainer, this, "Groups",
+                                SecondFragment.class));
+
+        actionBar.addTab(tab2);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
