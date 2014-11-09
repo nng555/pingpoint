@@ -35,6 +35,8 @@ public class GroupAdapter extends ArrayAdapter<PingGroup> {
 
         nameView.setText(group.getName());
         nameView.setTextColor(Color.WHITE);
+        nameView.setPadding(20,0,0,0);
+        nameView.setTextSize(30);
 
         return convertView;
     }

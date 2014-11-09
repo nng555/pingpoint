@@ -35,7 +35,8 @@
         android:background="#64f1f1f1"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="sans-serif"
+        android:choiceMode="none" />
 
     <Button
         android:layout_width="match_parent"
