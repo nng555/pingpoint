@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.app.ActionBar;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.Menu;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
@@ -132,9 +133,16 @@ public class FunctionActivity extends Activity
                     group.removeOpened(ParseUser.getCurrentUser());
                     updateData();
                     setTitle(group.getName());
+
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     public void updateData(){
