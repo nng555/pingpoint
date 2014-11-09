@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.app.ActionBar;
@@ -33,45 +35,38 @@ import android.widget.EditText;
 /**
  * Activity which displays a registration screen to the user.
  */
-public class GroupActivity extends Activity implements AdapterView.OnItemClickListener{
+public class GroupActivity extends Fragment{
+
 
     private ListView mListView;
     private GroupAdapter mAdapter;
 
-    ActionBar.Tab friendTab, groupTab;
-    Fragment fragment1 = new Fragment1();
-    Fragment fragment2 = new Fragment2();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_groups, container, false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_groups);
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-
-        ActionBar actionBar = getActionBar();
-        //actionBar.hide();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        friendTab = actionBar.newTab().setText("Friends");
-        groupTab = actionBar.newTab().setText("Groups");
-
-        friendTab.setTabListener(new TabListener(fragment1));
-        groupTab.setTabListener(new TabListener(fragment2));
-
-        actionBar.addTab(friendTab);
-        actionBar.addTab(groupTab);
-
-
-        mListView = (ListView) findViewById(R.id.group_list);
-        mAdapter = new GroupAdapter(this, new ArrayList<PingGroup>());
+        View v = getView();
+        mListView = (ListView) v.findViewById(R.id.group_list);
+        mAdapter = new GroupAdapter(v.getContext(), new ArrayList<PingGroup>());
         mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
+        mListView.setOnItemClickListener(
+            new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                    final PingGroup group = mAdapter.getItem(position);
+                    group.addOpened(ParseUser.getCurrentUser());
+                    group.saveInBackground();
 
-        Button creategroupButton = (Button) findViewById(R.id.button2);
+                    startActivity(new Intent(getActivity(), FunctionActivity.class));
+                }
+            });
+
+        Button creategroupButton = (Button) v.findViewById(R.id.button2);
 
         updateData();
         creategroupButton.setOnClickListener(new
@@ -84,9 +79,12 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
         });
     }
 
+
+
     public void popup() {
-        final EditText input = new EditText(this);
-        new AlertDialog.Builder(this)
+        View v = getView();
+        final EditText input = new EditText(v.getContext());
+        new AlertDialog.Builder(v.getContext())
                 .setTitle("Create a group:")
                 .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -104,14 +102,6 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
                 // Do nothing.
             }
         }).show();
-    }
-
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final PingGroup group = mAdapter.getItem(position);
-        group.addOpened(ParseUser.getCurrentUser());
-        group.saveInBackground();
-
-        startActivity(new Intent(GroupActivity.this, FunctionActivity.class));
     }
 
     public void updateData(){

@@ -24,32 +24,39 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.widget.EditText;
+import android.view.LayoutInflater;
+import android.app.Fragment;
+import android.view.ViewGroup;
+import android.content.Context;
+
 
 
 /**
  * Activity which displays a registration screen to the user.
  */
-public class FriendActivity extends Activity {
+public class FriendActivity extends Fragment {
 
 
     private ListView mListView;
     private FriendAdapter mAdapter;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_friends, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        ActionBar actionBar = getActionBar();
-        actionBar.hide();
-        mListView = (ListView) findViewById(R.id.friend_list);
-        mAdapter = new FriendAdapter(this, new ArrayList<PingFriends>());
+        View v = getView();
+        mListView = (ListView) v.findViewById(R.id.friend_list);
+        mAdapter = new FriendAdapter(v.getContext(), new ArrayList<PingFriends>());
         mListView.setAdapter(mAdapter);
 
         updateData();
-        Button createfriendButton = (Button) findViewById(R.id.add_friend_button);
+        Button createfriendButton = (Button) v.findViewById(R.id.add_friend_button);
         updateData();
         createfriendButton.setOnClickListener(new
 
@@ -61,8 +68,9 @@ public class FriendActivity extends Activity {
     }
 
     private void popup() {
-        final EditText input = new EditText(this);
-        new AlertDialog.Builder(this)
+        View v = getView();
+        final EditText input = new EditText(v.getContext());
+        new AlertDialog.Builder(v.getContext())
                 .setTitle("Add a friend:")
                 .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
