@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import java.util.ArrayList;
+import com.google.android.gms.maps.model.Marker;
 
 /**
  * Data model for a post.
@@ -41,24 +42,24 @@ public class PingGroup extends ParseObject {
         }
     }
 
-    public void addPing(ParseGeoPoint point) {
-        ArrayList<ParseGeoPoint> pings = (ArrayList<ParseGeoPoint>) get("pings");
+    public void addPing(Marker point) {
+        ArrayList<Marker> pings = (ArrayList<Marker>) get("pings");
         if (pings != null) {
             pings.add(point);
             put("pings", pings);
             this.saveInBackground();
         } else {
-            pings = new ArrayList<ParseGeoPoint>();
+            pings = new ArrayList<Marker>();
             pings.add(point);
             put("pings", pings);
             this.saveInBackground();
         }
     }
 
-    public ArrayList<ParseGeoPoint> getPing() {
-        ArrayList<ParseGeoPoint> pings = (ArrayList<ParseGeoPoint>) get("pings");
+    public ArrayList<Marker> getPing() {
+        ArrayList<Marker> pings = (ArrayList<Marker>) get("pings");
         if (pings == null) {
-            return new ArrayList<ParseGeoPoint>();
+            return new ArrayList<Marker>();
         } else {
             return pings;
         }

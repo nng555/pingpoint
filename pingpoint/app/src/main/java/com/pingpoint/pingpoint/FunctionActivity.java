@@ -27,6 +27,7 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.graphics.Bitmap;
 
 import android.widget.Toast;
 import android.content.IntentSender;
@@ -43,7 +44,8 @@ import com.parse.ParseGeoPoint;
 import java.util.ArrayList;
 import java.util.List;
 import com.parse.ParseUser;
-
+import com.google.maps.android.ui.IconGenerator;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 
 public class FunctionActivity extends Activity
@@ -71,6 +73,7 @@ public class FunctionActivity extends Activity
     LocationRequest mLocationRequest;
     UiSettings mapSettings;
     private PingGroup group;
+    private IconGenerator icnGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,7 @@ public class FunctionActivity extends Activity
         //theMap.setOnMarkerClickListener((OnMarkerClickListener) this);
         mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
-
+        icnGenerator = new IconGenerator(this);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
@@ -116,6 +119,7 @@ public class FunctionActivity extends Activity
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
         ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
         query.whereEqualTo("open", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<PingGroup>() {
@@ -130,11 +134,10 @@ public class FunctionActivity extends Activity
     }
 
     public void updateData(){
-        ArrayList<ParseGeoPoint> pings = group.getPing();
+        ArrayList<Marker> pings = group.getPing();
         for (int i=0; i < pings.size(); i++) {
-            ParseGeoPoint pt = pings.get(i);
-            LatLng ping = new LatLng(pt.getLatitude(), pt.getLongitude());
-            theMap.addMarker(new MarkerOptions().position(ping).visible(true));
+            Marker mark = pings.get(i);
+            //theMap.addMarker(mark);
         }
     }
 
@@ -142,19 +145,23 @@ public class FunctionActivity extends Activity
     public void onMapClick(LatLng ping)
     {
         updateData();
-        theMap.addMarker(new MarkerOptions().position(ping).visible(true));
-        group.addPing(new ParseGeoPoint(ping.latitude,ping.longitude));
-        popup();
+        popup(ping);
+
     }
     public boolean onMarkerClick(Marker fgt){
         final EditText input = new EditText(this);
-        String poopoo;
         new AlertDialog.Builder(this)
         .setTitle("Change Marker Name:")
-        .setView(input);
-
-        poopoo = input.getText().toString();
-        fgt.setTitle(poopoo);
+        .setView(input)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing.
+            }
+        }).show();
         return false;
     }
     private void setUpMapIfNeeded()
@@ -175,20 +182,20 @@ public class FunctionActivity extends Activity
         theMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
-    public void popup() {
+    public void popup(LatLng ping) {
+        final LatLng ping1 = ping;
         final EditText input = new EditText(this);
         new AlertDialog.Builder(this)
                 .setTitle("Enter Text:")
                 .setView(input)
-                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = input.getText().toString();
-                        PingGroup group = new PingGroup();
-                        group.setName(value);
-                        group.setUser(ParseUser.getCurrentUser());
-                        group.addMember(ParseUser.getCurrentUser());
-                        group.saveInBackground();
-                    }
+                        Marker mark = theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
+                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)))
+                                .draggable(true));
+                        //group.addPing(mark);
+                        }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Do nothing.
@@ -203,8 +210,8 @@ public class FunctionActivity extends Activity
     }
     protected void onStop() {
         // Disconnecting the client invalidates it.
-        mLocationClient.disconnect();
         group.removeOpened(ParseUser.getCurrentUser());
+        mLocationClient.disconnect();
         super.onStop();
     }
     @Override
