@@ -11,6 +11,8 @@ import android.app.ActionBar;
 import android.view.ViewGroup;
 import android.view.View;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
 import android.location.Criteria;
 import android.location.LocationManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.graphics.Bitmap;
@@ -140,9 +143,55 @@ public class FunctionActivity extends Activity
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
-        getMenuInflater().inflate(R.menu.menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.add_friend_button:
+                addFriendPopup();
+                break;
+            case R.id.refresh_button:
+                updateData();
+                break;
+            default:
+                break;
+        }
+
+        return true;
+    }
+
+    private void addFriendPopup() {
+        final EditText input = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Add friend:")
+                .setView(input)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        ParseQuery<ParseUser> query = ParseUser.getQuery();
+                        query.whereEqualTo("username", value);
+                        query.findInBackground(new FindCallback<ParseUser>() {
+                            @Override
+                            public void done(List<ParseUser> members, ParseException error) {
+                                if(members != null){
+                                    ParseUser member = members.get(0);
+                                    group.addMember(member);
+                                }
+                            }
+                        });
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing.
+            }
+        }).show();
     }
 
     public void updateData(){
@@ -156,8 +205,7 @@ public class FunctionActivity extends Activity
                         PingMarker marker = markers.get(i);
                         LatLng ping1 = new LatLng(marker.getLatitude(), marker.getLongitude());
                         theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
-                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(marker.getValue())))
-                                .draggable(true));
+                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(marker.getValue()))));
                     }
                 }
             }
@@ -178,12 +226,23 @@ public class FunctionActivity extends Activity
         .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        mark.setTitle(value);
+                    String value = input.getText().toString();
+                    mark.setIcon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)));
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                // Do nothing.
+                    ParseQuery<PingMarker> query = ParseQuery.getQuery(PingMarker.class);
+                    query.whereEqualTo("latitude", mark.getPosition().latitude);
+                    query.findInBackground(new FindCallback<PingMarker>() {
+                        @Override
+                        public void done(List<PingMarker> markers, ParseException error) {
+                            if(markers != null){
+                                markers.get(0).deleteInBackground();
+                                mark.remove();
+                                updateData();
+                            }
+                        }
+                    });
             }
         }).show();
         return false;

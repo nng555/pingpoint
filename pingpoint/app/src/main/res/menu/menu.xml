@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/add_friend_button"
         android:title="Add Friend"
+        android:icon="@drawable/ic_action_new"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom" />
+    <item android:id="@+id/refresh_button"
+        android:title="Refresh"
+        android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="1"
         android:showAsAction="ifRoom" />
 </menu>
