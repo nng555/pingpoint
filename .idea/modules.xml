@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pingpoint.iml" filepath="$PROJECT_DIR$/.idea/pingpoint.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/21.0.0.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/21.0.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.1.71/6.1.71.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.1.71/6.1.71.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/pingpoint/app/src/androidTest/androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/generated/source/buildConfig/buildConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/intermediates/manifests/debug/debug.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/intermediates/manifests/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/intermediates/manifests/test/debug/debug.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/intermediates/manifests/test/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/google-play-services_lib/google-play-services_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/src/main/main.iml" filepath="$PROJECT_DIR$/pingpoint/app/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint.iml" filepath="$PROJECT_DIR$/pingpoint.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/generated/source/r/r.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/generated/source/r/r.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingpoint/app/build/generated/source/buildConfig/test/test.iml" filepath="$PROJECT_DIR$/pingpoint/app/build/generated/source/buildConfig/test/test.iml" />
     </modules>
   </component>
 </project>

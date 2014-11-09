@@ -1,6 +1,7 @@
 package com.pingpoint.pingpoint;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -37,6 +38,10 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
     private ListView mListView;
     private GroupAdapter mAdapter;
 
+    ActionBar.Tab friendTab, groupTab;
+    Fragment fragment1 = new Fragment1();
+    Fragment fragment2 = new Fragment2();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +49,21 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getActionBar();
-        actionBar.hide();
+        //actionBar.hide();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        friendTab = actionBar.newTab().setText("Friends");
+        groupTab = actionBar.newTab().setText("Groups");
+
+        friendTab.setTabListener(new TabListener(fragment1));
+        groupTab.setTabListener(new TabListener(fragment2));
+
+        actionBar.addTab(friendTab);
+        actionBar.addTab(groupTab);
 
 
         mListView = (ListView) findViewById(R.id.group_list);
