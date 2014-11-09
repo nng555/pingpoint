@@ -78,6 +78,7 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
                         group.setUser(ParseUser.getCurrentUser());
                         group.addMember(ParseUser.getCurrentUser());
                         group.saveInBackground();
+                        updateData();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -88,28 +89,10 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final PingGroup group = mAdapter.getItem(position);
-        final EditText input = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setTitle("Add a member:")
-                .setView(input)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        ParseQuery<ParseUser> query = ParseUser.getQuery();
-                        query.whereEqualTo("username", value);
-                        query.findInBackground(new FindCallback<ParseUser>() {
-                            public void done(List<ParseUser> user, ParseException e) {
-                                if (e == null) {
-                                    group.addMember(user.get(0));
-                                }
-                            }
-                        });
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Do nothing.
-            }
-        }).show();
+        group.addOpened(ParseUser.getCurrentUser());
+        group.saveInBackground();
+
+        startActivity(new Intent(GroupActivity.this, FunctionActivity.class));
     }
 
     public void updateData(){

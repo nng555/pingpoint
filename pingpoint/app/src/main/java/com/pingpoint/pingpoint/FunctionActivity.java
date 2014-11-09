@@ -32,15 +32,20 @@ import android.content.IntentSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.ParseGeoPoint;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FunctionActivity extends Activity
         implements GooglePlayServicesClient.ConnectionCallbacks,
                    GooglePlayServicesClient.OnConnectionFailedListener,
-                   LocationListener, GoogleMap.OnMapClickListener, OnMarkerClickListener {
+                   LocationListener, GoogleMap.OnMapClickListener{
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
@@ -60,9 +65,7 @@ public class FunctionActivity extends Activity
     boolean mUpdatesRequested;
     LocationRequest mLocationRequest;
     UiSettings mapSettings;
-
-    private ListView mListView;
-    private GroupAdapter mAdapter;
+    private PingGroup group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +78,9 @@ public class FunctionActivity extends Activity
         actionBar.hide();
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
-        theMap.setOnMarkerClickListener((OnMarkerClickListener) this);
+        //theMap.setOnMarkerClickListener((OnMarkerClickListener) this);
         mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
-
-        mListView = (ListView) findViewById(R.id.group_list);
-        mAdapter = new GroupAdapter(this, new ArrayList<PingGroup>());
-        mListView.setAdapter(mAdapter);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -111,11 +110,34 @@ public class FunctionActivity extends Activity
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+        ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
+        query.whereEqualTo("open", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<PingGroup>() {
+            @Override
+            public void done(List<PingGroup> groups, ParseException error) {
+                if(groups != null){
+                    group = groups.get(0);
+                }
+            }
+        });
+
     }
+
+    public void updateData(){
+        ArrayList<ParseGeoPoint> pings = group.getPing();
+        for (int i=0; i < pings.size(); i++) {
+            ParseGeoPoint pt = pings.get(i);
+            LatLng ping = new LatLng(pt.getLatitude(), pt.getLongitude());
+            theMap.addMarker(new MarkerOptions().position(ping).visible(true));
+        }
+    }
+
 
     public void onMapClick(LatLng ping)
     {
+        updateData();
         theMap.addMarker(new MarkerOptions().position(ping).visible(true));
+        group.addPing(new ParseGeoPoint(ping.latitude,ping.longitude));
         popup();
     }
 

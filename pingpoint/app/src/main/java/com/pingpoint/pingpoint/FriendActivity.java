@@ -50,13 +50,12 @@ public class FriendActivity extends Activity {
 
         updateData();
         Button createfriendButton = (Button) findViewById(R.id.add_friend_button);
-
+        updateData();
         createfriendButton.setOnClickListener(new
 
         OnClickListener() {
             public void onClick(View v) {
                 popup();
-                updateData();
             }
         });
     }
@@ -77,6 +76,7 @@ public class FriendActivity extends Activity {
                         friend2.setFriend(ParseUser.getCurrentUser().getUsername());
                         friend2.setUser(friend);
                         friend2.saveInBackground();
+                        updateData();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
