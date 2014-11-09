@@ -7,6 +7,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import java.util.ArrayList;
 import com.google.android.gms.maps.model.Marker;
+import java.util.Collections;
 
 /**
  * Data model for a post.
@@ -43,23 +44,26 @@ public class PingGroup extends ParseObject {
     }
 
     public void addOpened(ParseUser user) {
-        ArrayList<ParseUser> opened = (ArrayList<ParseUser>) get("open");
+        ArrayList<String> opened = (ArrayList<String>) get("open");
         if (opened != null) {
-            opened.add(user);
+            opened.add(user.getUsername());
             put("open", opened);
-            this.saveInBackground();
         } else {
-            opened = new ArrayList<ParseUser>();
-            opened.add(user);
+            opened = new ArrayList<String>();
+            opened.add(user.getUsername());
             put("open", opened);
-            this.saveInBackground();
         }
     }
 
     public void removeOpened(ParseUser user) {
-        ArrayList<ParseUser> opened = (ArrayList<ParseUser>) get("open");
-        if (opened.contains(user)) {
-            opened.remove(user);
+        ArrayList<String> opened = (ArrayList<String>) get("open");
+        int i = 0;
+        while(i<opened.size()) {
+            if(opened.get(i).equals(user.getUsername())) {
+                opened.remove(i);
+            } else {
+                i++;
+            }
         }
     }
 

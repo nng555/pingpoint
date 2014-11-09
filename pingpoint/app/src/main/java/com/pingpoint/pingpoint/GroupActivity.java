@@ -61,6 +61,7 @@ public class GroupActivity extends Activity implements AdapterView.OnItemClickLi
         OnClickListener() {
             public void onClick(View v) {
                 popup();
+                updateData();
             }
         });
     }

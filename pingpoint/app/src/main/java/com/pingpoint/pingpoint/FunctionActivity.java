@@ -109,7 +109,7 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
-            theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
+            //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             theMap.setOnMapClickListener(this);
             theMap.setOnMarkerClickListener(this);
@@ -124,16 +124,16 @@ public class FunctionActivity extends Activity
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 
         ParseQuery<PingGroup> query = ParseQuery.getQuery(PingGroup.class);
-        query.whereEqualTo("open", ParseUser.getCurrentUser());
+        query.whereEqualTo("open", ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<PingGroup>() {
             @Override
             public void done(List<PingGroup> groups, ParseException error) {
                 if(groups != null){
                     group = groups.get(0);
                     group.removeOpened(ParseUser.getCurrentUser());
+                    group.saveInBackground();
                     updateData();
                     setTitle(group.getName());
-
                 }
             }
         });
@@ -172,12 +172,14 @@ public class FunctionActivity extends Activity
     }
     public boolean onMarkerClick(Marker fgt){
         final EditText input = new EditText(this);
+        final Marker mark = fgt;
         new AlertDialog.Builder(this)
         .setTitle("Change Marker Name:")
         .setView(input)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = input.getText().toString();
+                        mark.setTitle(value);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -237,7 +239,6 @@ public class FunctionActivity extends Activity
     }
     protected void onStop() {
         // Disconnecting the client invalidates it.
-        group.removeOpened(ParseUser.getCurrentUser());
         mLocationClient.disconnect();
         super.onStop();
     }
@@ -246,7 +247,6 @@ public class FunctionActivity extends Activity
         // Save the current setting for updates
         //mEditor.putBoolean("KEY_UPDATES_ON", mUpdatesRequested);
         //mEditor.commit();
-        group.removeOpened(ParseUser.getCurrentUser());
         super.onPause();
     }
 
