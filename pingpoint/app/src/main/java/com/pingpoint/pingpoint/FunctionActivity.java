@@ -87,7 +87,6 @@ public class FunctionActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
-        setUpTabs();
         /*
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -117,6 +116,10 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
+            myMarker = theMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .visible(true)
+                    .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(ParseUser.getCurrentUser().getUsername()))));
 
             //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             ParseQuery<PingLocation> query = ParseQuery.getQuery(PingLocation.class);
@@ -174,37 +177,15 @@ public class FunctionActivity extends Activity
             @Override
             public void onMyLocationChange(Location location) {
                 me.updatePosition(location.getLatitude(),location.getLongitude());
+                myMarker.setVisible(false);
+                myMarker = theMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                        .visible(true)
+                        .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(ParseUser.getCurrentUser().getUsername()))));
                 updateData();
             }
         });
     }
-    private void setupTabs() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        Tab tab1 = actionBar
-                .newTab()
-                .setText("Friends")
-                .setIcon(R.drawable.ic_home)
-                .setTabListener(
-                        new FragmentTabListener<FirstFragment>(R.id.flContainer, this, "Friends",
-                                FirstFragment.class));
-
-        actionBar.addTab(tab1);
-        actionBar.selectTab(tab1);
-
-        Tab tab2 = actionBar
-                .newTab()
-                .setText("Groups")
-                .setIcon(R.drawable.ic_mentions)
-                .setTabListener(
-                        new FragmentTabListener<SecondFragment>(R.id.flContainer, this, "Groups",
-                                SecondFragment.class));
-
-        actionBar.addTab(tab2);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -274,23 +255,25 @@ public class FunctionActivity extends Activity
                 }
             }
         });
-        //for (int i = 0; i < members.size(); i++) {
-            ParseQuery<PingLocation> query1 = ParseQuery.getQuery(PingLocation.class);
-            query1.whereEqualTo("name", members.get(1).getUsername());
-            query1.findInBackground(new FindCallback<PingLocation>() {
-                @Override
-                public void done(List<PingLocation> locations, ParseException error) {
-                    PingLocation member = locations.get(0);
-                    myMarker = theMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(member.getLatitude(), member.getLongitude()))
-                            .visible(true)
-                            .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(member.getName()))));
+        for (int i = 0; i < members.size(); i++) {
+            if(!(members.get(i).getUsername().equals(ParseUser.getCurrentUser().getUsername()))) {
+                ParseQuery<PingLocation> query1 = ParseQuery.getQuery(PingLocation.class);
+                query1.whereEqualTo("name", members.get(i));
+                query1.findInBackground(new FindCallback<PingLocation>() {
+                    @Override
+                    public void done(List<PingLocation> locations, ParseException error) {
+                        PingLocation member = locations.get(0);
+                        myMarker = theMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(member.getLatitude(), member.getLongitude()))
+                                .visible(true)
+                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(member.getName()))));
 
 
-                }
-            });
+                    }
+                });
+            }
 
-        //}
+        }
     }
 
 

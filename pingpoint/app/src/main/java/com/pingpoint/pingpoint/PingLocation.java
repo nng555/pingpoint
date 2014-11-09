@@ -36,6 +36,7 @@ public class PingLocation extends ParseObject {
     public void updatePosition(double latitude, double longitude) {
         put("latitude", latitude);
         put("longitude", longitude);
+        this.saveInBackground();
     }
 
 }
