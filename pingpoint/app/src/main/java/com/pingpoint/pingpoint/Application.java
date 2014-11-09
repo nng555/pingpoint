@@ -15,6 +15,7 @@ public class Application extends android.app.Application {
     ParseObject.registerSubclass(PingGroup.class);
     ParseObject.registerSubclass(PingFriends.class);
     ParseObject.registerSubclass(PingMarker.class);
+    ParseObject.registerSubclass(PingLocation.class);
     Parse.initialize(this, "SGiQCn0KyqRVzidsnDTuG7Hg1GKK4ZE6pSKj50hE",
         "xfsY6e3IcrYbFkEsldwZYTzJlRAg2gJJTvSJ9cqi");
   }

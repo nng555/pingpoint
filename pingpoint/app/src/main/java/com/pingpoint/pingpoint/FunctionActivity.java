@@ -50,6 +50,7 @@ import java.util.List;
 import com.parse.ParseUser;
 import com.google.maps.android.ui.IconGenerator;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 
 
 public class FunctionActivity extends Activity
@@ -78,6 +79,9 @@ public class FunctionActivity extends Activity
     UiSettings mapSettings;
     private PingGroup group;
     private IconGenerator icnGenerator;
+    private PingLocation me;
+    private Marker myMarker;
+    private ArrayList<ParseUser> members;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +116,28 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
+
             //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
+            ParseQuery<PingLocation> query = ParseQuery.getQuery(PingLocation.class);
+            query.whereEqualTo("name", ParseUser.getCurrentUser().getUsername());
+            query.findInBackground(new FindCallback<PingLocation>() {
+                @Override
+                public void done(List<PingLocation> locations, ParseException error) {
+                    if(locations.size() == 0){
+                        me = new PingLocation();
+                        me.setName(ParseUser.getCurrentUser().getUsername());
+                        me.setLatitude(myPosition.latitude);
+                        me.setLongitude(myPosition.longitude);
+                        me.saveInBackground();
+                    } else {
+                        me = locations.get(0);
+                        me.setLatitude(myPosition.latitude);
+                        me.setLongitude(myPosition.longitude);
+                        me.saveInBackground();
+                    }
+                }
+            });
+
             theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             theMap.setOnMapClickListener(this);
             theMap.setOnMarkerClickListener(this);
@@ -131,13 +156,24 @@ public class FunctionActivity extends Activity
         query.findInBackground(new FindCallback<PingGroup>() {
             @Override
             public void done(List<PingGroup> groups, ParseException error) {
-                if(groups != null){
+                if (groups != null) {
                     group = groups.get(0);
                     group.removeOpened(ParseUser.getCurrentUser());
                     group.saveInBackground();
-                    updateData();
                     setTitle(group.getName());
+                    members = group.getMember();
+                    updateData();
                 }
+            }
+        });
+
+
+        theMap.setOnMyLocationChangeListener(new OnMyLocationChangeListener() {
+
+            @Override
+            public void onMyLocationChange(Location location) {
+                me.updatePosition(location.getLatitude(),location.getLongitude());
+                updateData();
             }
         });
     }
@@ -180,7 +216,7 @@ public class FunctionActivity extends Activity
                         query.findInBackground(new FindCallback<ParseUser>() {
                             @Override
                             public void done(List<ParseUser> members, ParseException error) {
-                                if(members != null){
+                                if (members != null) {
                                     ParseUser member = members.get(0);
                                     group.addMember(member);
                                 }
@@ -194,13 +230,13 @@ public class FunctionActivity extends Activity
         }).show();
     }
 
-    public void updateData(){
+    public void updateData() {
         ParseQuery<PingMarker> query = ParseQuery.getQuery(PingMarker.class);
         query.whereEqualTo("group", group.getName());
         query.findInBackground(new FindCallback<PingMarker>() {
             @Override
             public void done(List<PingMarker> markers, ParseException error) {
-                if(markers != null){
+                if (markers != null) {
                     for (int i = 0; i < markers.size(); i++) {
                         PingMarker marker = markers.get(i);
                         LatLng ping1 = new LatLng(marker.getLatitude(), marker.getLongitude());
@@ -210,7 +246,25 @@ public class FunctionActivity extends Activity
                 }
             }
         });
+        //for (int i = 0; i < members.size(); i++) {
+            ParseQuery<PingLocation> query1 = ParseQuery.getQuery(PingLocation.class);
+            query1.whereEqualTo("name", members.get(1).getUsername());
+            query1.findInBackground(new FindCallback<PingLocation>() {
+                @Override
+                public void done(List<PingLocation> locations, ParseException error) {
+                    PingLocation member = locations.get(0);
+                    myMarker = theMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(member.getLatitude(), member.getLongitude()))
+                            .visible(true)
+                            .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(member.getName()))));
+
+
+                }
+            });
+
+        //}
     }
+
 
 
     public void onMapClick(LatLng ping)
@@ -218,6 +272,7 @@ public class FunctionActivity extends Activity
         popup(ping);
         updateData();
     }
+
     public boolean onMarkerClick(Marker fgt){
         final EditText input = new EditText(this);
         final Marker mark = fgt;

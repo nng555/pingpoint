@@ -43,6 +43,10 @@ public class PingGroup extends ParseObject {
         }
     }
 
+    public ArrayList<ParseUser> getMember() {
+        return (ArrayList<ParseUser>) get("members");
+    }
+
     public void addOpened(ParseUser user) {
         ArrayList<String> opened = (ArrayList<String>) get("open");
         if (opened != null) {
