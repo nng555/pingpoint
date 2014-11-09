@@ -30,13 +30,15 @@
         android:id="@+id/group_list"
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:smoothScrollbar="true"
+        android:padding="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
         android:background="#64f1f1f1"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:touchscreenBlocksFocus="false"
-        android:choiceMode="none"
-        tools:listitem="@android:layout/simple_list_item_2"
-        />
+        android:fontFamily="sans-serif"
+        android:choiceMode="none" />
 
     <Button
         android:layout_width="match_parent"
