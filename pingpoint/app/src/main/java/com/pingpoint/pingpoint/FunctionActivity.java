@@ -188,6 +188,7 @@ public class FunctionActivity extends Activity
     protected void onStop() {
         // Disconnecting the client invalidates it.
         mLocationClient.disconnect();
+        group.removeOpened(ParseUser.getCurrentUser());
         super.onStop();
     }
     @Override
@@ -195,6 +196,7 @@ public class FunctionActivity extends Activity
         // Save the current setting for updates
         //mEditor.putBoolean("KEY_UPDATES_ON", mUpdatesRequested);
         //mEditor.commit();
+        group.removeOpened(ParseUser.getCurrentUser());
         super.onPause();
     }
 
