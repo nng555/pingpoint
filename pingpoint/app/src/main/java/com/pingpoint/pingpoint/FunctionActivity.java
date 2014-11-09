@@ -193,7 +193,7 @@ public class FunctionActivity extends Activity
                         String value = input.getText().toString();
                         Marker mark = theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
                                 .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)))
-                                .draggable(true));
+                                .draggable(true).anchor(0,1/2));
                         //group.addPing(mark);
                         }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
