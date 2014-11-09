@@ -82,6 +82,7 @@ public class FunctionActivity extends Activity
     private PingLocation me;
     private Marker myMarker;
     private ArrayList<ParseUser> members;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class FunctionActivity extends Activity
         mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
         icnGenerator = new IconGenerator(this);
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
         Location location = locationManager.getLastKnownLocation(provider);
@@ -116,10 +117,7 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
-            myMarker = theMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .visible(true)
-                    .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(ParseUser.getCurrentUser().getUsername()))));
+
 
             //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             ParseQuery<PingLocation> query = ParseQuery.getQuery(PingLocation.class);
@@ -176,15 +174,32 @@ public class FunctionActivity extends Activity
 
             @Override
             public void onMyLocationChange(Location location) {
-                me.updatePosition(location.getLatitude(),location.getLongitude());
-                myMarker.setVisible(false);
-                myMarker = theMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                        .visible(true)
-                        .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(ParseUser.getCurrentUser().getUsername()))));
+                updateMyLocation(location);
                 updateData();
             }
         });
+    }
+
+    public void updateMyLocation(Location location) {
+
+        ParseQuery<PingMarker> query = ParseQuery.getQuery(PingMarker.class);
+        query.whereEqualTo("value", ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<PingMarker>() {
+                                   @Override
+                                   public void done(List<PingMarker> meMarkers, ParseException error) {
+                                        if(meMarkers.size() != 0) {
+                                            for(int i = 0; i < meMarkers.size(); i++) {
+                                                meMarkers.get(i).deleteInBackground();
+                                            }
+                                        }
+                                   }
+                               });
+        PingMarker marker = new PingMarker();
+        marker.setGroup(group.getName());
+        marker.setValue(ParseUser.getCurrentUser().getUsername());
+        marker.setLongitude(location.getLongitude());
+        marker.setLatitude(location.getLatitude());
+        marker.saveInBackground();
     }
 
     @Override
@@ -240,6 +255,7 @@ public class FunctionActivity extends Activity
     }
 
     public void updateData() {
+        theMap.clear();
         ParseQuery<PingMarker> query = ParseQuery.getQuery(PingMarker.class);
         query.whereEqualTo("group", group.getName());
         query.findInBackground(new FindCallback<PingMarker>() {
@@ -255,25 +271,6 @@ public class FunctionActivity extends Activity
                 }
             }
         });
-        for (int i = 0; i < members.size(); i++) {
-            if(!(members.get(i).getUsername().equals(ParseUser.getCurrentUser().getUsername()))) {
-                ParseQuery<PingLocation> query1 = ParseQuery.getQuery(PingLocation.class);
-                query1.whereEqualTo("name", members.get(i));
-                query1.findInBackground(new FindCallback<PingLocation>() {
-                    @Override
-                    public void done(List<PingLocation> locations, ParseException error) {
-                        PingLocation member = locations.get(0);
-                        myMarker = theMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(member.getLatitude(), member.getLongitude()))
-                                .visible(true)
-                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(member.getName()))));
-
-
-                    }
-                });
-            }
-
-        }
     }
 
 
