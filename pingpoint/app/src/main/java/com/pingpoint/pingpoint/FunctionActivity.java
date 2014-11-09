@@ -27,11 +27,13 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import android.widget.Toast;
 import android.content.IntentSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -40,12 +42,15 @@ import com.parse.ParseGeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.parse.ParseUser;
+
 
 
 public class FunctionActivity extends Activity
         implements GooglePlayServicesClient.ConnectionCallbacks,
                    GooglePlayServicesClient.OnConnectionFailedListener,
-                   LocationListener, GoogleMap.OnMapClickListener{
+                   LocationListener, GoogleMap.OnMapClickListener,
+                   OnMarkerClickListener{
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
@@ -101,6 +106,7 @@ public class FunctionActivity extends Activity
             //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             theMap.setOnMapClickListener(this);
+            theMap.setOnMarkerClickListener(this);
 
         }
         mLocationClient = new LocationClient(this, this, this);
@@ -140,7 +146,17 @@ public class FunctionActivity extends Activity
         group.addPing(new ParseGeoPoint(ping.latitude,ping.longitude));
         popup();
     }
+    public boolean onMarkerClick(Marker fgt){
+        final EditText input = new EditText(this);
+        String poopoo;
+        new AlertDialog.Builder(this)
+        .setTitle("Change Marker Name:")
+        .setView(input);
 
+        poopoo = input.getText().toString();
+        fgt.setTitle(poopoo);
+        return false;
+    }
     private void setUpMapIfNeeded()
     {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -231,23 +247,9 @@ public class FunctionActivity extends Activity
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public boolean onMarkerClick (Marker marker) {
-        return true;
-    }
 
     public void onProviderDisabled(String provider) {}
     public void onProviderEnabled(String provider) {}
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
-
-
-
-    /* updateLocation()
-     * - Get Own User Location
-     * - Upload said Location to server
-     * - Bring back list of EVERY thing in server (AKA GROUP)
-     * - Display other locations as PINGS
-     */
-
-    /* */
 }
