@@ -1,7 +1,9 @@
 package com.pingpoint.pingpoint;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
@@ -23,17 +25,22 @@ import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
 import android.location.Criteria;
 import android.location.LocationManager;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.content.IntentSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.parse.ParseUser;
 
+import java.util.ArrayList;
 
 
 public class FunctionActivity extends Activity
         implements GooglePlayServicesClient.ConnectionCallbacks,
                    GooglePlayServicesClient.OnConnectionFailedListener,
-                   LocationListener, GoogleMap.OnMapClickListener{
+                   LocationListener, GoogleMap.OnMapClickListener, OnMarkerClickListener {
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
@@ -54,6 +61,9 @@ public class FunctionActivity extends Activity
     LocationRequest mLocationRequest;
     UiSettings mapSettings;
 
+    private ListView mListView;
+    private GroupAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +75,13 @@ public class FunctionActivity extends Activity
         actionBar.hide();
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
+        theMap.setOnMarkerClickListener((OnMarkerClickListener) this);
         mapSettings = theMap.getUiSettings();
         theMap.setMyLocationEnabled(true);
+
+        mListView = (ListView) findViewById(R.id.group_list);
+        mAdapter = new GroupAdapter(this, new ArrayList<PingGroup>());
+        mListView.setAdapter(mAdapter);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -101,7 +116,9 @@ public class FunctionActivity extends Activity
     public void onMapClick(LatLng ping)
     {
         theMap.addMarker(new MarkerOptions().position(ping).visible(true));
+        popup();
     }
+
     private void setUpMapIfNeeded()
     {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -118,6 +135,27 @@ public class FunctionActivity extends Activity
 
     private void setUpMap() {
         theMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+    }
+
+    public void popup() {
+        final EditText input = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Enter Text:")
+                .setView(input)
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        PingGroup group = new PingGroup();
+                        group.setName(value);
+                        group.setUser(ParseUser.getCurrentUser());
+                        group.addMember(ParseUser.getCurrentUser());
+                        group.saveInBackground();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing.
+            }
+        }).show();
     }
 
     protected void onStart()
@@ -167,6 +205,10 @@ public class FunctionActivity extends Activity
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean onMarkerClick (Marker marker) {
+        return true;
     }
 
     public void onProviderDisabled(String provider) {}
