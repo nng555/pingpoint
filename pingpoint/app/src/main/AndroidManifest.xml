@@ -33,32 +33,32 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="Login fucker"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".BothActivity"
-            android:label="Make up your mind loser"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".GroupActivity"
-            android:label="Make up your mind loser"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".FriendActivity"
-            android:label="Make up your mind loser"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".FunctionActivity"
-            android:label="Make up your mind loser"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".SignUpActivity"
-            android:label="Signup yo"
+            android:label=""
             android:screenOrientation="portrait" />
 
         <activity

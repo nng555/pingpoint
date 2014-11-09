@@ -42,29 +42,6 @@ public class PingGroup extends ParseObject {
         }
     }
 
-    public void addPing(Marker point) {
-        ArrayList<Marker> pings = (ArrayList<Marker>) get("pings");
-        if (pings != null) {
-            pings.add(point);
-            put("pings", pings);
-            this.saveInBackground();
-        } else {
-            pings = new ArrayList<Marker>();
-            pings.add(point);
-            put("pings", pings);
-            this.saveInBackground();
-        }
-    }
-
-    public ArrayList<Marker> getPing() {
-        ArrayList<Marker> pings = (ArrayList<Marker>) get("pings");
-        if (pings == null) {
-            return new ArrayList<Marker>();
-        } else {
-            return pings;
-        }
-    }
-
     public void addOpened(ParseUser user) {
         ArrayList<ParseUser> opened = (ArrayList<ParseUser>) get("open");
         if (opened != null) {

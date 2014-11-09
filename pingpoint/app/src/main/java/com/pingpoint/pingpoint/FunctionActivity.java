@@ -79,11 +79,13 @@ public class FunctionActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
+        /*
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         ActionBar actionBar = getActionBar();
         actionBar.hide();
+        */
         theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setUpMapIfNeeded();
         //theMap.setOnMarkerClickListener((OnMarkerClickListener) this);
@@ -106,7 +108,7 @@ public class FunctionActivity extends Activity
 
             myPosition = new LatLng(latitude, longitude);
 
-            //theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
+            theMap.addMarker(new MarkerOptions().position(myPosition).title("fucker"));
             theMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             theMap.setOnMapClickListener(this);
             theMap.setOnMarkerClickListener(this);
@@ -127,26 +129,38 @@ public class FunctionActivity extends Activity
             public void done(List<PingGroup> groups, ParseException error) {
                 if(groups != null){
                     group = groups.get(0);
+                    group.removeOpened(ParseUser.getCurrentUser());
+                    updateData();
+                    setTitle(group.getName());
                 }
             }
         });
-
     }
 
     public void updateData(){
-        ArrayList<Marker> pings = group.getPing();
-        for (int i=0; i < pings.size(); i++) {
-            Marker mark = pings.get(i);
-            //theMap.addMarker(mark);
-        }
+        ParseQuery<PingMarker> query = ParseQuery.getQuery(PingMarker.class);
+        query.whereEqualTo("group", group.getName());
+        query.findInBackground(new FindCallback<PingMarker>() {
+            @Override
+            public void done(List<PingMarker> markers, ParseException error) {
+                if(markers != null){
+                    for (int i = 0; i < markers.size(); i++) {
+                        PingMarker marker = markers.get(i);
+                        LatLng ping1 = new LatLng(marker.getLatitude(), marker.getLongitude());
+                        theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
+                                .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(marker.getValue())))
+                                .draggable(true));
+                    }
+                }
+            }
+        });
     }
 
 
     public void onMapClick(LatLng ping)
     {
-        updateData();
         popup(ping);
-
+        updateData();
     }
     public boolean onMarkerClick(Marker fgt){
         final EditText input = new EditText(this);
@@ -191,10 +205,15 @@ public class FunctionActivity extends Activity
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = input.getText().toString();
-                        Marker mark = theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
+                        theMap.addMarker(new MarkerOptions().position(ping1).visible(true)
                                 .icon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)))
-                                .draggable(true).anchor(0,1/2));
-                        //group.addPing(mark);
+                                .draggable(true));
+                        PingMarker marker = new PingMarker();
+                        marker.setGroup(group.getName());
+                        marker.setValue(value);
+                        marker.setLongitude(ping1.longitude);
+                        marker.setLatitude(ping1.latitude);
+                        marker.saveInBackground();
                         }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
