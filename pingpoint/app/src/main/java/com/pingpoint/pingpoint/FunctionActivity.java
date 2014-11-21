@@ -174,8 +174,10 @@ public class FunctionActivity extends Activity
 
             @Override
             public void onMyLocationChange(Location location) {
-                updateMyLocation(location);
-                updateData();
+                if(group!=null) {
+                    updateMyLocation(location);
+                    updateData();
+                }
             }
         });
     }
@@ -290,7 +292,7 @@ public class FunctionActivity extends Activity
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     String value = input.getText().toString();
-                    mark.setIcon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)));
+                    //mark.setIcon(BitmapDescriptorFactory.fromBitmap(icnGenerator.makeIcon(value)));
                     }
                 }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
